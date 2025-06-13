@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import RichTextEditor from './JoditEditor';
 import db from '../../../lib/databases';
+import { toast } from 'react-toastify';
 
 const BlogUploadForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -77,12 +78,7 @@ const BlogUploadForm = () => {
                     slug: createdBlog.slug
                 });
                 
-                alert(`🎉 Blog "${blogData.title}" ${blogData.isPublished ? 'published' : 'saved as draft'} successfully!\n\n` +
-                      `📝 Title: ${blogData.title}\n` +
-                      `👤 Author: ${blogData.author}\n` +
-                      `🔗 Slug: ${blogData.slug}\n` +
-                      `📊 Status: ${blogData.isPublished ? 'Published' : 'Draft'}\n` +
-                      `⏰ Created: ${new Date().toLocaleString()}`);
+                toast.success(`🎉 Blog "${blogData.title}" ${blogData.isPublished ? 'published' : 'saved as draft'} successfully!`);
                 
                 reset();
                 
@@ -90,11 +86,11 @@ const BlogUploadForm = () => {
                 console.error('❌ Database creation error:', databaseError);
                 
                 if (databaseError.code === 409) {
-                    alert('❌ A blog with this slug already exists. Please choose a different title or slug.');
+                    toast.error('❌ A blog with this slug already exists. Please choose a different title or slug.');
                 } else if (databaseError.message.includes('databaseId')) {
-                    alert('❌ Database configuration error. Please check your environment settings.');
+                    toast.error('❌ Database configuration error. Please check your environment settings.');
                 } else {
-                    alert(`❌ Failed to save blog: ${databaseError.message || 'Database error occurred'}`);
+                    toast.error(`❌ Failed to save blog: ${databaseError.message || 'Database error occurred'}`);
                 }
                 throw databaseError;
             }

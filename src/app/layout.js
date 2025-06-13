@@ -1,6 +1,8 @@
+import './global.css'
+
 export const metadata = {
-  title: "Appwrite + Next.js",
-  description: "Appwrite starter for Next.js",
+  title: "Portfolio",
+  description: "Portfolio",
 };
 
 export default function RootLayout({ children }) {

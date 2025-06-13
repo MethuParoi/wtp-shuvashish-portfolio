@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+
+/* Jodit Editor Custom Styles */
+.jodit-editor-wrapper .jodit-container {
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.375rem !important;
+    overflow: hidden;
+}
+
+.jodit-editor-wrapper .jodit-toolbar {
+    border-bottom: 1px solid #e5e7eb !important;
+    background: #f9fafb !important;
+}
+
+.jodit-editor-wrapper .jodit-workplace {
+    min-height: 300px;
+}
+
+.jodit-editor-wrapper .jodit-wysiwyg {
+    padding: 1rem !important;
+    font-family: inherit !important;
+    line-height: 1.6 !important;
+}

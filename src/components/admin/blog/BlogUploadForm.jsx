@@ -5,6 +5,7 @@ import { useState } from 'react';
 import RichTextEditor from './JoditEditor';
 import db from '../../../lib/databases';
 import { toast } from 'react-toastify';
+import storageService from '../../../lib/storage';
 
 const BlogUploadForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,7 @@ const BlogUploadForm = () => {
             author: '',
             slug: '',
             tags: '',
-            featuredImage: '',
+            image: null,
             isPublished: false
         }
     });
@@ -41,12 +42,95 @@ const BlogUploadForm = () => {
             .trim();
     };
 
+    const watchedImage = watch('image');
+
+    // Validate file upload
+    const validateFile = (files) => {
+        if (!files || files.length === 0) {
+            return 'Image is required';
+        }
+        
+        const file = files[0];
+        const maxSize = 10 * 1024 * 1024; // 10MB
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        
+        if (file.size > maxSize) {
+            return 'File size must be less than 10MB';
+        }
+        
+        if (!allowedTypes.includes(file.type)) {
+            return 'Only JPEG, PNG, GIF, and WebP files are allowed';
+        }
+        
+        return true;
+    };
+
     const onSubmit = async (data) => {
         setIsLoading(true);
         
         try {
             // Auto-generate slug if not provided
             const slug = data.slug || generateSlug(data.title);
+
+            let imageUrl = '';
+                    
+                    // Upload image if provided
+                    if (data.image && data.image[0]) {
+                        const file = data.image[0];
+                        
+                        try {
+                            // Upload file to Appwrite storage bucket
+                            const uploadedFile = await storageService.uploadFile(file);
+                            
+                            // Verify upload response
+                            if (!uploadedFile || !uploadedFile.$id || !uploadedFile.bucketId) {
+                                throw new Error('Invalid upload response from storage service');
+                            }
+                            
+                            // Construct the image URL dynamically from the response
+                            const bucketId = uploadedFile.bucketId;
+                            const fileId = uploadedFile.$id;
+                            const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+                            const endpoint = process.env.NEXT_PUBLIC_ENDPOINT;
+                            
+                            // Validate environment variables
+                            if (!projectId || !endpoint) {
+                                throw new Error('Missing required environment configuration');
+                            }
+                            
+                            // Build the complete image URL
+                            imageUrl = `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${projectId}&mode=admin`;
+                            
+                            // console.log('✅ Image uploaded successfully:', {
+                            //     fileId: uploadedFile.$id,
+                            //     fileName: uploadedFile.name,
+                            //     fileSize: uploadedFile.sizeOriginal,
+                            //     imageUrl: imageUrl
+                            // });
+                            
+                            // Show image upload success
+                            // alert(`✅ Image "${uploadedFile.name}" uploaded successfully!`);
+                            
+                        } catch (storageError) {
+                            console.error('❌ Storage upload error:', storageError);
+                            
+                            // Specific storage error handling
+                            if (storageError.code === 400) {
+                                toast.error('❌ Invalid file format. Please check your image file.');
+                            } else if (storageError.code === 413) {
+                                toast.error('❌ File too large. Please choose a smaller image (max 10MB).');
+                            } else if (storageError.code === 401) {
+                                toast.error('❌ Authentication failed. Please refresh and try again.');
+                            } else if (storageError.code === 403) {
+                                toast.error('❌ Permission denied. Unable to upload image.');
+                            } else if (storageError.message.includes('network') || storageError.message.includes('fetch')) {
+                                toast.error('❌ Network error. Please check your connection and try again.');
+                            } else {
+                                toast.error(`❌ Image upload failed: ${storageError.message || 'Unknown storage error'}`);
+                            }
+                            throw storageError; // Re-throw to prevent database creation
+                        }
+                    }
             
             // Prepare blog data
             const blogData = {
@@ -56,7 +140,8 @@ const BlogUploadForm = () => {
                 author: data.author.trim(),
                 slug: slug,
                 tags: data.tags,
-                featuredImage: data.featuredImage.trim(),
+                featuredImage: imageUrl,
+                // featuredImage: data.featuredImage.trim(),
                 isPublished: data.isPublished,
                 publishedAt: data.isPublished ? new Date().toISOString() : null,
                 createdAt: new Date().toISOString(),
@@ -97,7 +182,7 @@ const BlogUploadForm = () => {
             
         } catch (error) {
             console.error('❌ Blog creation error:', error);
-            alert(`❌ Unexpected error: ${error.message}`);
+            toast.error(`❌ Unexpected error: ${error.message}`);
         } finally {
             setIsLoading(false);
         }
@@ -227,7 +312,7 @@ const BlogUploadForm = () => {
                 </div>
 
                 {/* Featured Image URL */}
-                <div>
+                {/* <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Featured Image URL
                     </label>
@@ -244,6 +329,53 @@ const BlogUploadForm = () => {
                     />
                     {errors.featuredImage && (
                         <p className="mt-1 text-sm text-red-600">{errors.featuredImage.message}</p>
+                    )}
+                </div> */}
+
+                {/* Image Upload Field */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Blog Image (Optional)
+                    </label>
+                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors">
+                        <div className="space-y-1 text-center">
+                            <svg
+                                className="mx-auto h-12 w-12 text-gray-400"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 48 48"
+                            >
+                                <path
+                                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            <div className="flex text-sm text-gray-600">
+                                <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 mx-auto">
+                                    <span className=''>Upload a file</span>
+                                    <input
+                                        type="file"
+                                        {...register('image', { validate: validateFile })}
+                                        className="sr-only"
+                                        accept="image/*"
+                                    />
+                                </label>
+                                {/* <p className="pl-1">or drag and drop</p> */}
+                            </div>
+                            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                        </div>
+                    </div>
+                    {watchedImage && watchedImage[0] && (
+                        <div className="mt-2">
+                            <p className="text-sm text-gray-600">
+                                Selected: {watchedImage[0].name}
+                            </p>
+                        </div>
+                    )}
+                    {errors.image && (
+                        <p className="mt-1 text-sm text-red-600">{errors.image.message}</p>
                     )}
                 </div>
 

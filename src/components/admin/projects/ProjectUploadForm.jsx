@@ -291,7 +291,7 @@ const ProjectUploadForm = () => {
                                 />
                             </svg>
                             <div className="flex text-sm text-gray-600">
-                                <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500">
+                                <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 mx-auto">
                                     <span>Upload a file</span>
                                     <input
                                         type="file"
@@ -300,7 +300,7 @@ const ProjectUploadForm = () => {
                                         accept="image/*"
                                     />
                                 </label>
-                                <p className="pl-1">or drag and drop</p>
+                                {/* <p className="pl-1">or drag and drop</p> */}
                             </div>
                             <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                         </div>

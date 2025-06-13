@@ -4,6 +4,7 @@ import BlogGrid from '../../components/home/blog/BlogGrid';
 
 export default async function HomePage() {
   const blogs = await fetchBlogs();
+  console.log('Fetched blogs:', blogs);
 
   return (
     <section className="container mx-auto px-4 py-12">

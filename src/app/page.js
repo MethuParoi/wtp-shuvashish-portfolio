@@ -227,19 +227,19 @@ export default function Home() {
                 <div className="flex flex-col">
                   <span className="text-[#97979B]">Endpoint</span>
                   <span className="truncate">
-                    {process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}
+                    {process.env.NEXT_PUBLIC_ENDPOINT}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[#97979B]">Project-ID</span>
                   <span className="truncate">
-                    {process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}
+                    {process.env.NEXT_PUBLIC_PROJECT_ID}
                   </span>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[#97979B]">Project name</span>
                   <span className="truncate">
-                    {process.env.NEXT_PUBLIC_APPWRITE_PROJECT_NAME}
+                    {process.env.NEXT_PUBLIC_PROJECT_NAME}
                   </span>
                 </div>
               </div>

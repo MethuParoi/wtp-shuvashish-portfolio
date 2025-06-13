@@ -1,4 +1,6 @@
-import './global.css'
+import './global.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Portfolio",
@@ -20,6 +22,18 @@ export default function RootLayout({ children }) {
       </head>
       <body className={"bg-[#FAFAFB] font-[Inter] text-sm text-[#56565C]"}>
         {children}
+        <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
       </body>
     </html>
   );

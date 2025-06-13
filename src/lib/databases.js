@@ -6,8 +6,8 @@ const db = {};
 
 const collections = [
     {
-        dbId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-        id: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID_PROJECTS,
+        dbId: process.env.NEXT_PUBLIC_DATABASE_ID,
+        id: process.env.NEXT_PUBLIC_COLLECTION_ID_PROJECTS,
         name: "projects",
     },
 ];

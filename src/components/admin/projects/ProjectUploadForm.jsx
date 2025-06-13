@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import db from '../../../lib/databases';
 import storageService from '../../../lib/storage';
+import { toast } from 'react-toastify';
 
 const ProjectUploadForm = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -71,8 +72,8 @@ const ProjectUploadForm = () => {
                 // Construct the image URL dynamically from the response
                 const bucketId = uploadedFile.bucketId;
                 const fileId = uploadedFile.$id;
-                const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
-                const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
+                const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+                const endpoint = process.env.NEXT_PUBLIC_ENDPOINT;
                 
                 // Validate environment variables
                 if (!projectId || !endpoint) {
@@ -90,24 +91,24 @@ const ProjectUploadForm = () => {
                 });
                 
                 // Show image upload success
-                alert(`✅ Image "${uploadedFile.name}" uploaded successfully!`);
+                // alert(`✅ Image "${uploadedFile.name}" uploaded successfully!`);
                 
             } catch (storageError) {
                 console.error('❌ Storage upload error:', storageError);
                 
                 // Specific storage error handling
                 if (storageError.code === 400) {
-                    alert('❌ Invalid file format. Please check your image file.');
+                    toast.error('❌ Invalid file format. Please check your image file.');
                 } else if (storageError.code === 413) {
-                    alert('❌ File too large. Please choose a smaller image (max 10MB).');
+                    toast.error('❌ File too large. Please choose a smaller image (max 10MB).');
                 } else if (storageError.code === 401) {
-                    alert('❌ Authentication failed. Please refresh and try again.');
+                    toast.error('❌ Authentication failed. Please refresh and try again.');
                 } else if (storageError.code === 403) {
-                    alert('❌ Permission denied. Unable to upload image.');
+                    toast.error('❌ Permission denied. Unable to upload image.');
                 } else if (storageError.message.includes('network') || storageError.message.includes('fetch')) {
-                    alert('❌ Network error. Please check your connection and try again.');
+                    toast.error('❌ Network error. Please check your connection and try again.');
                 } else {
-                    alert(`❌ Image upload failed: ${storageError.message || 'Unknown storage error'}`);
+                    toast.error(`❌ Image upload failed: ${storageError.message || 'Unknown storage error'}`);
                 }
                 throw storageError; // Re-throw to prevent database creation
             }
@@ -138,11 +139,7 @@ const ProjectUploadForm = () => {
             });
             
             // Success alert with project details
-            alert(`🎉 Project "${projectData.title}" uploaded successfully!\n\n` +
-                  `📝 Title: ${projectData.title}\n` +
-                  `🔗 Features: ${projectData.keyFeatures.length} features added\n` +
-                  `📸 Image: ${imageUrl ? 'Uploaded' : 'No image'}\n` +
-                  `⏰ Created: ${new Date().toLocaleString()}`);
+            toast.success(`🎉 Project "${projectData.title}" uploaded successfully!`);
             
             // Reset form after successful submission
             reset();
@@ -152,17 +149,17 @@ const ProjectUploadForm = () => {
             
             // Specific database error handling
             if (databaseError.code === 400) {
-                alert('❌ Invalid project data. Please check all fields and try again.');
+                toast.error('❌ Invalid project data. Please check all fields and try again.');
             } else if (databaseError.code === 401) {
-                alert('❌ Authentication failed. Please refresh and try again.');
+                toast.error('❌ Authentication failed. Please refresh and try again.');
             } else if (databaseError.code === 403) {
-                alert('❌ Permission denied. Unable to save project.');
+                toast.error('❌ Permission denied. Unable to save project.');
             } else if (databaseError.code === 409) {
-                alert('❌ Project with this title already exists. Please choose a different title.');
+                toast.error('❌ Project with this title already exists. Please choose a different title.');
             } else if (databaseError.message.includes('network') || databaseError.message.includes('fetch')) {
-                alert('❌ Network error. Please check your connection and try again.');
+                toast.error('❌ Network error. Please check your connection and try again.');
             } else {
-                alert(`❌ Failed to save project: ${databaseError.message || 'Database error occurred'}`);
+                toast.error(`❌ Failed to save project: ${databaseError.message || 'Database error occurred'}`);
             }
             throw databaseError;
         }
@@ -173,11 +170,11 @@ const ProjectUploadForm = () => {
         // Fallback error handling for uncaught errors
         if (!error.message.includes('upload') && !error.message.includes('save')) {
             if (error.name === 'TypeError') {
-                alert('❌ Invalid data format. Please check your inputs and try again.');
+                toast.error('❌ Invalid data format. Please check your inputs and try again.');
             } else if (error.name === 'ReferenceError') {
-                alert('❌ Configuration error. Please contact support.');
+                toast.error('❌ Configuration error. Please contact support.');
             } else {
-                alert(`❌ Unexpected error occurred: ${error.message || 'Please try again'}`);
+                toast.error(`❌ Unexpected error occurred: ${error.message || 'Please try again'}`);
             }
         }
         
@@ -190,41 +187,6 @@ const ProjectUploadForm = () => {
 };
 
 
-    // const onSubmit = async (data) => {
-    //     setIsLoading(true);
-        
-    //     try {
-    //         let imageUrl = '';
-            
-    //         // Upload image if provided
-    //         if (data.image && data.image[0]) {
-    //             const file = data.image[0];
-    //             const uploadedFile = await storageService.uploadFile(file);
-    //             imageUrl = storageService.getFileView(uploadedFile.$id);
-    //         }
-            
-    //         // Prepare project data
-    //         const projectData = {
-    //             title: data.title,
-    //             content: data.content,
-    //             projectLink: data.projectLink,
-    //             keyFeatures: data.keyFeatures.filter(feature => feature.trim() !== ''),
-    //             image: imageUrl,
-    //             createdAt: new Date().toISOString()
-    //         };
-            
-    //         // Save to database
-    //         await db.projects.create(projectData);
-            
-    //         alert('Project uploaded successfully!');
-    //         reset();
-    //     } catch (error) {
-    //         console.error('Upload failed:', error);
-    //         alert('Failed to upload project. Please try again.');
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">

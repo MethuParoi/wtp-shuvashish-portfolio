@@ -5,7 +5,7 @@ import { storage, ID } from './appwrite';
 export const uploadFile = async (file) => {
     try {
         const response = await storage.createFile(
-            process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID_PROJECTS,
+            process.env.NEXT_PUBLIC_BUCKET_ID_PROJECTS,
             ID.unique(),
             file
         );
@@ -19,7 +19,7 @@ export const uploadFile = async (file) => {
 // Get file preview from Appwrite storage
 export const getFilePreview = (fileId) => {
     return storage.getFilePreview(
-        process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID_PROJECTS,
+        process.env.NEXT_PUBLIC_BUCKET_ID_PROJECTS,
         fileId
     );
 };
@@ -27,7 +27,7 @@ export const getFilePreview = (fileId) => {
 // Get file view from Appwrite storage
 export const getFileView = (fileId) => {
     return storage.getFileView(
-        process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID_PROJECTS,
+        process.env.NEXT_PUBLIC_BUCKET_ID_PROJECTS,
         fileId
     );
 };
@@ -36,7 +36,7 @@ export const getFileView = (fileId) => {
 export const deleteFile = async (fileId) => {
     try {
         await storage.deleteFile(
-            process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID_PROJECTS,
+            process.env.NEXT_PUBLIC_BUCKET_ID_PROJECTS,
             fileId
         );
     } catch (error) {

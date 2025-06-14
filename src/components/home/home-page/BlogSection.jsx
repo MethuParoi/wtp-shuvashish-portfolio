@@ -8,11 +8,11 @@ export default async function BlogSection() {
 //   console.log('Fetched blogs:', blogs); 
 
     return (
-      <section className="py-16 bg-gray-50 bg-gray-50 container mx-auto px-4 max-w-7xl">
+      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
         <div className="">
           {/* Section Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
               Featured Blogs
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

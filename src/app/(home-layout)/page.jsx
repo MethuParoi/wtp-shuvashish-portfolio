@@ -1,17 +1,16 @@
 // app/page.jsx (or app/home/page.jsx)
-import { fetchBlogs, fetchBlogsWithCursor } from '../../lib/fetchBlog';
-import BlogGrid from '../../components/home/blog/BlogGrid';
+import BlogSection from '@/components/home/home-page/BlogSection';
 import ProjectsSection from '@/components/home/home-page/ProjectsSection';
 
 export default async function HomePage() {
-  const blogs = await fetchBlogsWithCursor();
-  console.log('Fetched blogs:', blogs);
+  
 
   return (
     <section className="container mx-auto px-4 py-12">
+        <BlogSection/>
         <ProjectsSection/>
-      <h2 className="text-3xl font-bold mb-8">Latest Blogs</h2>
-      <BlogGrid blogs={blogs.documents} />
+      
+      
     </section>
   );
 }

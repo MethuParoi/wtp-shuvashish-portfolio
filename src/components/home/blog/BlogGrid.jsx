@@ -1,7 +1,7 @@
 import BlogCard from './BlogCard';
 
 export default function BlogGrid({ blogs }) {
-    console.log('Rendering BlogGrid with blogs:', blogs);
+    // console.log('Rendering BlogGrid with blogs:', blogs);
 
     if (!Array.isArray(blogs) || blogs.length === 0) {
         return <p className='text-center my-14 text-2xl font-semibold'>No blogs available.</p>;

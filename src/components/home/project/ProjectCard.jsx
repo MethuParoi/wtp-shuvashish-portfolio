@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -18,6 +19,8 @@ export default function ProjectCard({ project }) {
     router.push(`/project/${slug}`);
   };
 
+  console.log('Project Card Rendered:', project.image);
+
   return (
     <div
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group transform hover:-translate-y-2"
@@ -25,33 +28,26 @@ export default function ProjectCard({ project }) {
     >
       {/* Project Image */}
       <div className="relative h-48 w-full overflow-hidden">
-        {!imageError && project.image ? (
-          <img
+        
+          <Image
             src={project.image}
             alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-            onError={() => setImageError(true)}
+            width={100}
+            height={100}
+            className="h-full w-full object-cover "
+            // onError={() => setImageError(true)}
           />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              <svg className="mx-auto h-12 w-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              <p className="text-sm">Project Image</p>
-            </div>
-          </div>
-        )}
+        
         
         {/* Overlay with hover effect */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+        {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button className="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium shadow-lg">
               View Details
             </button>
           </div>
-        </div>
-      </div>
+        </div> */}
+      </div> 
 
       {/* Project Content */}
       <div className="p-6 flex-1 flex flex-col">

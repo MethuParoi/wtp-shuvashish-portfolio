@@ -2,12 +2,12 @@
 const nextConfig = {
     images: {
     remotePatterns: [
-    
+      
       {
         protocol: "https",
-        hostname: "https://fra.cloud.appwrite.io/v1",
+        hostname: "fra.cloud.appwrite.io",
         port: "",
-        pathname: "/storage/buckets/**",
+        pathname: "/v1/storage/buckets/**",
       },
    
     ],

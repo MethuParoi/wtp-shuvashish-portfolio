@@ -1,13 +1,13 @@
-import { fetchBlogsWithCursor } from '@/lib/fetchBlog';
+import { fetchBlogs } from '@/lib/fetchBlog';
 import BlogGrid from '../../../components/home/blog/BlogGrid';
 
 export default async function BlogSection() {
   try {
-    const blogs = await fetchBlogsWithCursor(6); // Limit to 6 blog for homepage
+    const blogs = await fetchBlogs(); // Limit to 6 blog for homepage
 //   console.log('Fetched blogs:', blogs); 
 
     return (
-      <section className="py-16 bg-gray-50 bg-gray-50 container mx-auto px-4 max-w-7xl">
+      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
         <div className="">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -20,7 +20,7 @@ export default async function BlogSection() {
           </div>
 
           {/* Blog Grid */}
-          <BlogGrid blogs={blogs.documents} />
+          <BlogGrid blogs={blogs} />
 
           
         </div>
@@ -38,3 +38,4 @@ export default async function BlogSection() {
     );
   }
 }
+

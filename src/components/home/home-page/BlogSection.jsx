@@ -1,54 +1,72 @@
-import { fetchBlogsWithCursor } from '@/lib/fetchBlog';
-import Link from 'next/link';
-import BlogGrid from '../blog/BlogGrid';
+"use client";
 
-export default async function BlogSection() {
-  try {
-    const blogs = await fetchBlogsWithCursor(6); // Limit to 6 blog for homepage
-//   console.log('Fetched blogs:', blogs); 
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { useRouter } from "next/navigation";
+import BlogGrid from "../../home/blog/BlogGrid";
+import { fetchBlogs } from "../../../lib/fetchBlog"; // must be client-safe or call via API
 
-    return (
-      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
-        <div className="">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              Featured Blogs
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Explore my latest articles and insights. Each blog post delves into various topics, sharing knowledge and experiences.
-            </p>
+export default function BlogSection() {
+  const router = useRouter();
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadBlogs = async () => {
+      try {
+        const data = await fetchBlogs(4); // Make sure this function is available client-side or fetch from an API route
+        setBlogs(data);
+      } catch (err) {
+        console.error("Error loading blogs:", err);
+        setError("Unable to load blog posts at the moment.");
+      }
+    };
+
+    loadBlogs();
+  }, []);
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="text-center mb-12">
+          <p className="text-secondary-hover font-medium text-sm uppercase tracking-wide mb-2">
+            Our Blog
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Stories & Ideas
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Explore breathtaking landscapes, iconic landmarks, and hidden gems around the globe
+          </p>
+        </div>
+
+        {/* Blog Grid */}
+        {blogs.length > 0 && !error && (
+          <div className="mb-12">
+            <BlogGrid blogs={blogs} />
           </div>
+        )}
 
-          {/* Blog Grid */}
-          <BlogGrid blogs={blogs.documents} />
+        {/* Error Message */}
+        {error && (
+          <p className="text-red-500 text-center mt-6">{error}</p>
+        )}
 
-          {/* View All Blogs Button */}
-          {blogs.documents.length > 0 && (
-            <div className="text-center mt-12">
-              <Link
-                href="/all-blogs"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300"
-              >
-                View All Blogs
-                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
-    );
-  } catch (error) {
-    console.error('Error in BlogsSection:', error);
-    return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Featured Blogs</h2>
-          <p className="text-red-500">Error loading Blogs. Please try again later.</p>
-        </div>
-      </section>
-    );
-  }
+        {/* View All Button */}
+        {blogs.length > 0 && !error && (
+          <div className="flex justify-center">
+            <Button
+              onClick={() => router.push("/all-blogs")}
+              className="self-center"
+              variant="default"
+              size="default"
+            >
+              View All Blogs
+            </Button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
+

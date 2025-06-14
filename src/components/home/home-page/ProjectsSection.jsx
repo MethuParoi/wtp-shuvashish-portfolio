@@ -1,13 +1,32 @@
+"use client";
+import { Button } from '@/components/ui/Button';
 import { fetchProjects } from '../../../lib/fetchProject';
 import ProjectGrid from '../project/ProjectGrid';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default async function ProjectsSection() {
-  try {
-    const projects = await fetchProjects(6); // Limit to 6 projects for homepage
+export default function ProjectsSection() {
+  const router = useRouter();
+   const [projects, setProjects] = useState([]);
+    const [error, setError] = useState("");
+  
+    useEffect(() => {
+      const loadProjects = async () => {
+        try {
+          const data = await fetchProjects(4); 
+          setProjects(data);
+        } catch (err) {
+          console.error("Error loading projects:", err);
+          setError("Unable to load projects at the moment.");
+        }
+      };
+  
+      loadProjects();
+    }, []);
+    
 
     return (
-      <section className="py-16 bg-gray-50 bg-gray-50 container mx-auto px-4 max-w-7xl">
+      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
         <div className="">
           {/* Section Header */}
           <div className="text-center mb-12">
@@ -24,30 +43,19 @@ export default async function ProjectsSection() {
 
           {/* View All Projects Button */}
           {projects.length > 0 && (
-            <div className="text-center mt-12">
-              <Link
-                href="/all-projects"
-                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300"
-              >
-                View All Projects
-                <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
+            <div className="flex justify-center">
+            <Button
+              onClick={() => router.push("/all-projects")}
+              className="self-center"
+              variant="default"
+              size="default"
+            >
+              View All Projects
+            </Button>
+          </div>
           )}
         </div>
       </section>
     );
-  } catch (error) {
-    console.error('Error in ProjectsSection:', error);
-    return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Featured Projects</h2>
-          <p className="text-red-500">Error loading projects. Please try again later.</p>
-        </div>
-      </section>
-    );
-  }
+  
 }

@@ -1,42 +1,108 @@
-// // lib/blogs.js
-import { databases, Query } from './appwrite';
+// // // lib/blogs.js
+// import { databases, Query } from './appwrite';
 
-export async function fetchBlogsWithCursor(limit = 50, cursorAfter = null) {
+// export async function fetchBlogsWithCursor(limit = 50, cursorAfter = null) {
+//   try {
+//     const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
+//     const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
+    
+//     const queries = [
+//       Query.limit(limit),
+//       Query.equal('isPublished', true),
+//       Query.orderDesc('publishedAt')
+//     ];
+    
+//     // Add cursor if provided for pagination
+//     if (cursorAfter) {
+//       queries.push(Query.cursorAfter(cursorAfter));
+//     }
+    
+//     const res = await databases.listDocuments(databaseId, collectionId, queries);
+    
+//     return {
+//       documents: res.documents,
+//       hasMore: res.documents.length === limit,
+//       lastCursor: res.documents.length > 0 ? res.documents[res.documents.length - 1].$id : null
+//     };
+//   } catch (error) {
+//     console.error('Error fetching blogs with cursor:', error);
+//     return { documents: [], hasMore: false, lastCursor: null };
+//   }
+// }
+
+
+// export async function fetchBlogBySlug(slug) {
+//   const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
+//   const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
+//   const res = await databases.listDocuments(databaseId, collectionId, [
+//     Query.equal('slug', slug)
+//   ]);
+//   return res.documents[0];
+// }
+
+// lib/fetchBlog.js
+import { databases, Query } from './appwrite';
+import { fallbackBlogs } from '../data/fallbackBlog';
+
+export async function fetchBlogs(limit = 50) {
   try {
     const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
     const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
     
-    const queries = [
-      Query.limit(limit),
-      Query.equal('isPublished', true),
-      Query.orderDesc('publishedAt')
-    ];
-    
-    // Add cursor if provided for pagination
-    if (cursorAfter) {
-      queries.push(Query.cursorAfter(cursorAfter));
+    if (!databaseId || !collectionId) {
+      console.log('Using fallback blogs - missing environment variables');
+      return fallbackBlogs;
     }
     
-    const res = await databases.listDocuments(databaseId, collectionId, queries);
+    const res = await databases.listDocuments(databaseId, collectionId, [
+      Query.limit(Math.min(limit, 100)),
+      Query.equal('isPublished', true),
+      Query.orderDesc('publishedAt')
+    ]);
     
-    return {
-      documents: res.documents,
-      hasMore: res.documents.length === limit,
-      lastCursor: res.documents.length > 0 ? res.documents[res.documents.length - 1].$id : null
-    };
+    // If no blogs found in database, use fallback
+    if (!res.documents || res.documents.length === 0) {
+      console.log('Using fallback blogs - no blogs found in database');
+      return fallbackBlogs;
+    }
+    
+    console.log(`Fetched ${res.documents.length} blogs from database`);
+    return res.documents;
+    
   } catch (error) {
-    console.error('Error fetching blogs with cursor:', error);
-    return { documents: [], hasMore: false, lastCursor: null };
+    console.error('Error fetching blogs, using fallback:', error);
+    return fallbackBlogs;
   }
 }
 
-
 export async function fetchBlogBySlug(slug) {
-  const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
-  const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
-  const res = await databases.listDocuments(databaseId, collectionId, [
-    Query.equal('slug', slug)
-  ]);
-  return res.documents[0];
+  try {
+    if (!slug || slug.trim() === '') {
+      return null;
+    }
+    
+    const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
+    const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
+    
+    if (!databaseId || !collectionId) {
+      // Check fallback blogs
+      return fallbackBlogs.find(blog => blog.slug === slug) || null;
+    }
+    
+    const res = await databases.listDocuments(databaseId, collectionId, [
+      Query.equal('slug', slug.trim()),
+      Query.equal('isPublished', true)
+    ]);
+    
+    // If not found in database, check fallback
+    if (!res.documents || res.documents.length === 0) {
+      return fallbackBlogs.find(blog => blog.slug === slug) || null;
+    }
+    
+    return res.documents[0];
+  } catch (error) {
+    console.error('Error fetching blog by slug, checking fallback:', error);
+    return fallbackBlogs.find(blog => blog.slug === slug) || null;
+  }
 }
 

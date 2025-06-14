@@ -27,6 +27,18 @@ const ProjectUploadForm = () => {
         }
     });
 
+    // Auto-generate slug from title
+    const watchedTitle = watch('title');
+    
+    const generateSlug = (title) => {
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
+    };
+
     const watchedImage = watch('image');
 
     const validateFile = (files) => {
@@ -55,6 +67,7 @@ const ProjectUploadForm = () => {
     
     try {
         let imageUrl = '';
+        const slug = generateSlug(data.title);
         
         // Upload image if provided
         if (data.image && data.image[0]) {
@@ -117,6 +130,7 @@ const ProjectUploadForm = () => {
         // Prepare project data
         const projectData = {
             title: data.title?.trim(),
+            projectSlug: slug,
             content: data.content?.trim(),
             projectLink: data.projectLink?.trim(),
             keyFeatures: data.keyFeatures.filter(feature => feature?.trim() !== ''),

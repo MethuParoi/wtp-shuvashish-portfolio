@@ -1,10 +1,48 @@
+"use client";
 import { fetchProjects } from '../../../lib/fetchProject';
 import ProjectGrid from '../../../components/home/project/ProjectGrid';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import Loader from '@/components/ui/Loader/Loader';
 
-export default async function ProjectsSection() {
+export default function ProjectsSection() {
   try {
-    const projects = await fetchProjects(); 
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(false);
+  
+    // Fetch blogs from the server
+    useEffect(() => {
+          const loadProjects = async () => {
+            setLoading(true);
+            try {
+              const data = await fetchProjects(); 
+              setProjects(data);
+              setLoading(false);
+            } catch (err) {
+              console.error("Error loading projects:", err);
+              setError("Unable to load projects at the moment.");
+            }
+          };
+      
+          loadProjects();
+        }, []);
+  
+    if (!loading && projects.length === 0) {
+      return (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Projects Found</h2>
+            <p className="text-gray-600">It seems there are no projects available at the moment.</p>
+          </div>
+        </section>
+      );
+    }
+    if (loading) {
+      return (
+        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
+          <Loader/>
+        </section>
+      );
+    }
 
     return (
       <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">

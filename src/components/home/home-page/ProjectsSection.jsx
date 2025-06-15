@@ -4,17 +4,21 @@ import { fetchProjects } from '../../../lib/fetchProject';
 import ProjectGrid from '../project/ProjectGrid';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Loader from '@/components/ui/Loader/Loader';
 
 export default function ProjectsSection() {
   const router = useRouter();
    const [projects, setProjects] = useState([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
   
     useEffect(() => {
       const loadProjects = async () => {
+        setLoading(true);
         try {
           const data = await fetchProjects(4); 
           setProjects(data);
+          setLoading(false);
         } catch (err) {
           console.error("Error loading projects:", err);
           setError("Unable to load projects at the moment.");
@@ -23,6 +27,14 @@ export default function ProjectsSection() {
   
       loadProjects();
     }, []);
+
+    if (loading) {
+      return (
+        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
+          <Loader/>
+        </section>
+      );
+    }
     
 
     return (
@@ -46,7 +58,7 @@ export default function ProjectsSection() {
             <div className="flex justify-center">
             <Button
               onClick={() => router.push("/all-projects")}
-              className="self-center"
+              className="self-center mt-10"
               variant="default"
               size="default"
             >

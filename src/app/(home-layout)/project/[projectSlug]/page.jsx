@@ -1,33 +1,61 @@
-
+"use client";
+import { useEffect, useState } from 'react';
 import { fetchProjectBySlug } from '../../../../lib/fetchProject';
 import Link from 'next/link';
+import Loader from '@/components/ui/Loader/Loader';
 
-export default async function ProjectDetailPage({ params }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.projectSlug;
+export default function ProjectDetailPage({ params }) {
+  const [project, setProject] = useState();
+  const [loading, setLoading] = useState(false);
   
-  if (!slug) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Invalid Project URL</h1>
-          <p className="text-gray-600 mb-8">The project URL is malformed.</p>
-        </div>
-      </div>
-    );
-  }
+    // Fetch blogs from the server
+    useEffect(() => {
+          const loadProjects = async () => {
+            setLoading(true);
+            try {
+              const resolvedParams = await params;
+              const slug = resolvedParams?.projectSlug;
+              const project = await fetchProjectBySlug(slug);
+              setProject(project);
+              setLoading(false);
+            } catch (err) {
+              console.error("Error loading projects:", err);
+              setError("Unable to load projects at the moment.");
+            }
+          };
+      
+          loadProjects();
+        }, []);
   
-  const project = await fetchProjectBySlug(slug);
+    if (!loading && !project) {
+      return (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Project Found</h2>
+            <p className="text-gray-600">It seems there are no project available at the moment.</p>
+          </div>
+        </section>
+      );
+    }
+    if (loading) {
+      return (
+        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
+          <Loader/>
+        </section>
+      );
+    }
   
-  if (!project) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Project Not Found</h1>
-        </div>
-      </div>
-    );
-  }
+  // if (!slug) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <div className="text-center">
+  //         <h1 className="text-4xl font-bold text-gray-800 mb-4">Invalid Project URL</h1>
+  //         <p className="text-gray-600 mb-8">The project URL is malformed.</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+  
 
   return (
     <article className="min-h-screen w-screen bg-white overflow-x-hidden">

@@ -42,7 +42,7 @@ export default function BlogSection() {
 
         {/* Blog Grid */}
         {blogs.length > 0 && !error && (
-          <div className="mb-12">
+          <div className="mb-10">
             <BlogGrid blogs={blogs} />
           </div>
         )}

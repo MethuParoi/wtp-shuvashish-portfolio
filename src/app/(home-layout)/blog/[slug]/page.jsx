@@ -4,7 +4,6 @@ import { fetchBlogBySlug } from '../../../../lib/fetchBlog';
 import Loader from '@/components/ui/Loader/Loader';
 
 export default function BlogDetailPage({ params }) {
-  // const blog = await fetchBlogBySlug(params.slug);
   const [blog, setBlog] = useState();
   const [loading, setLoading] = useState(false);
   
@@ -64,7 +63,7 @@ export default function BlogDetailPage({ params }) {
         )}
       </div>
       <div
-        className="prose max-w-none"
+        className="prose max-w-none mx-4 lg:mx-0"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
     </article>

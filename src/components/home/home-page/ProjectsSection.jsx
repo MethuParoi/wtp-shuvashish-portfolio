@@ -1,5 +1,5 @@
 "use client";
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Navigation/Button';
 import { fetchProjects } from '../../../lib/fetchProject';
 import ProjectGrid from '../project/ProjectGrid';
 import { useRouter } from 'next/navigation';

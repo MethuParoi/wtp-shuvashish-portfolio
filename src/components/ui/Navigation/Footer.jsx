@@ -1,4 +1,4 @@
-import { footerData } from "../../data/footerData";
+import { footerData } from "../../../data/footerData";
 
 // Simple SVG icons for demo; replace with lucide-react or your icon set as needed
 const icons = {

@@ -1,7 +1,7 @@
 
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/ui/Navigation/Navbar";
 import "../global.css";
-import Footer from "@/components/ui/Footer";
+import Footer from "@/components/ui/Navigation/Footer";
 
 
 export default function RootLayout({

@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderColor: {
+        border: 'var(--color-border)', // Use your CSS variable or a specific color
+      },
       colors: {
         
       },

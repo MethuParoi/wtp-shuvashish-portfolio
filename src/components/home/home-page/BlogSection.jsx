@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Navigation/Button";
 import { useRouter } from "next/navigation";
 import BlogGrid from "../../home/blog/BlogGrid";
 import { fetchBlogs } from "../../../lib/fetchBlog"; // must be client-safe or call via API

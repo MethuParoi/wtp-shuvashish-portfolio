@@ -1,9 +1,6 @@
-import React from 'react'
+import DashboardLayout from "./layout";
 
-const page = () => {
-  return (
-    <div>Admin</div>
-  )
+
+export default function AdminDashboard() {
+  return <DashboardLayout />;
 }
-
-export default page

@@ -16,29 +16,16 @@ const quickActions = [
     icon: Edit,
     href: "/admin/blogs/create",
     color: "secondary"
-  },
-  {
-    title: "Upload Files",
-    description: "Manage project assets",
-    icon: Upload,
-    href: "/admin/files",
-    color: "accent"
-  },
-  {
-    title: "Account Settings",
-    description: "Manage your account",
-    icon: Settings,
-    href: "/admin/settings",
-    color: "neutral"
   }
+  
 ];
 
 export default function QuickActions() {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-6">Quick Links</h2>
+    <div className="bg-white rounded-xl shadow-sm border border-neutral-200 py-2 px-6">
+      <h2 className="text-lg font-semibold text-gray-900 mb-2">Quick Links</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-2">
         {quickActions.map((action, index) => {
           const Icon = action.icon;
           

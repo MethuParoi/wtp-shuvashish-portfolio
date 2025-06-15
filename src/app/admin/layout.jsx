@@ -24,20 +24,6 @@ export default function DashboardLayout() {
       icon: "blogs",
       trend: "+8%",
       trendDirection: "up"
-    },
-    {
-      title: "Pending Approvals",
-      value: "5",
-      icon: "pending",
-      trend: "-2%",
-      trendDirection: "down"
-    },
-    {
-      title: "Site Visitors (Monthly)",
-      value: "1.2K",
-      icon: "visitors",
-      trend: "+15%",
-      trendDirection: "up"
     }
   ];
 
@@ -60,22 +46,28 @@ export default function DashboardLayout() {
             </div>
 
             {/* Stats Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
               {statsData.map((stat, index) => (
-                <StatsCard key={index} {...stat} />
-              ))}
+                  <StatsCard key={index} {...stat} />
+                ))}
+            </div>
+            <div>
+                <QuickActions />
+            </div>
             </div>
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Recent Projects - Takes 2 columns */}
-              <div className="lg:col-span-2">
+              <div className="">
                 <RecentProjects />
               </div>
               
               {/* Quick Actions Sidebar */}
-              <div className="lg:col-span-1">
-                <QuickActions />
+              <div className="">
+                <RecentProjects />
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ export default function StatsCard({ title, value, icon, trend, trendDirection })
   const trendColor = trendDirection === 'up' ? 'text-accent' : 'text-red-500';
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl shadow-sm border border-neutral-200 py-[47px] px-6 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-4">
         <div className={`
           p-3 rounded-lg

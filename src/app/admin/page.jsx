@@ -73,12 +73,12 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Recent Projects - Takes 2 columns */}
               <div className="">
-                <RecentProjects />
+                <RecentProjects type="project" content={projects}/>
               </div>
               
               {/* Quick Actions Sidebar */}
               <div className="">
-                <RecentProjects />
+                <RecentProjects type="blog" content={blogs}/>
               </div>
             </div>
           </div>

@@ -7,14 +7,14 @@ const quickActions = [
     title: "Add New Project",
     description: "Create a new project entry",
     icon: Plus,
-    href: "/admin/projects/create",
+    href: "/admin/add-project",
     color: "primary"
   },
   {
     title: "Write New Blog",
     description: "Create a new blog post",
     icon: Edit,
-    href: "/admin/blogs/create",
+    href: "/admin/add-blog",
     color: "secondary"
   }
   

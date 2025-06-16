@@ -9,8 +9,6 @@ export default async function HomePage() {
     <section className="container mx-auto px-4 py-12">
         <BlogSection/>
         <ProjectsSection/>
-      
-      
     </section>
   );
 }

@@ -141,6 +141,107 @@ html, body {
 
 /* -----------Admin Dashboard Custom Styles----------- */
 
+/* -----------Admin Project Responsive Table Custom Styles----------- */
+
+/* Responsive Table Styles */
+.responsive-table-container {
+  @apply w-full;
+}
+
+/* Mobile Card Layout Enhancements */
+@media (max-width: 767px) {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Optimize mobile spacing */
+  .responsive-table-container {
+    @apply px-0;
+  }
+}
+
+/* Tablet Horizontal Scroll */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .responsive-table-container {
+    @apply overflow-x-auto;
+  }
+  
+  .responsive-table-container table {
+    min-width: 700px;
+  }
+  
+  /* Custom scrollbar for tablet */
+  .responsive-table-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .responsive-table-container::-webkit-scrollbar-track {
+    @apply bg-neutral-100 rounded-full;
+  }
+  
+  .responsive-table-container::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 rounded-full;
+  }
+  
+  .responsive-table-container::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-400;
+  }
+}
+
+/* Desktop Full Table */
+@media (min-width: 1024px) {
+  .responsive-table-container table {
+    min-width: 100%;
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (max-width: 639px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for action buttons */
+  .responsive-table-container button {
+    @apply p-2;
+  }
+}
+
+/* Smooth transitions for responsive changes */
+.responsive-table-container {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Loading skeleton for responsive table */
+.table-loading-skeleton {
+  @apply animate-pulse;
+}
+
+.table-loading-skeleton .skeleton-row {
+  @apply h-16 bg-neutral-200 rounded mb-2;
+}
+
+/* Custom focus states for accessibility */
+.responsive-table-container button:focus {
+  @apply outline-none ring-2 ring-primary ring-offset-2;
+}
+
+/* Print styles */
+@media print {
+  .responsive-table-container {
+    @apply overflow-visible;
+  }
+  
+  .responsive-table-container table {
+    @apply text-sm;
+  }
+}
+
+/* -----------Admin Project Responsive Table Custom Styles----------- */
 
 /* admin sidebar shadcn styles */
 @layer base {

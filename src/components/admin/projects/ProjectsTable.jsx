@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { fetchProjects } from '../../../lib/fetchProject';
 import { deleteProject, updateProject } from '../../../lib/projectOperations';
 import ProjectTableRow from './ProjectTableRow';
 import EditProjectModal from './EditProjectModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import { Search, Plus, Download, Filter, Menu, Eye, Edit, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import Loader from '@/components/ui/Loader/Loader';
 
 export default function ProjectsTable() {
   const [projects, setProjects] = useState([]);
@@ -18,6 +20,8 @@ export default function ProjectsTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [projectsPerPage] = useState(10);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     loadProjects();
@@ -89,7 +93,7 @@ export default function ProjectsTable() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">Loading projects...</div>
+        <Loader/>
       </div>
     );
   }
@@ -107,7 +111,7 @@ export default function ProjectsTable() {
               <Download className="h-4 w-4 mr-2" />
               Export
             </button> */}
-            <button className="inline-flex items-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
+            <button onClick={() => router.push("/admin/add-project")} className="inline-flex items-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
               <Plus className="h-4 w-4 mr-2" />
               Add Project
             </button>
@@ -133,7 +137,7 @@ export default function ProjectsTable() {
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </button> */}
-              <button className="inline-flex items-center justify-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
+              <button onClick={() => router.push("/admin/add-project")} className="inline-flex items-center justify-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Project
               </button>

@@ -29,6 +29,18 @@ export default function EditProjectModal({ project, onSave, onClose }) {
     }
   }, [project]);
 
+  // Auto-generate slug from title
+    const watchedTitle = watch('title');
+    
+    const generateSlug = (title) => {
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
+    };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -56,38 +68,84 @@ export default function EditProjectModal({ project, onSave, onClose }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // In the handleSubmit function of EditProjectModal.jsx
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      let imageUrl = formData.image;
+  try {
+    let imageUrl = formData.image;
 
-      // Upload new image if selected
-      if (imageFile) {
-        const uploadedFile = await uploadFile(imageFile);
-        const bucketId = uploadedFile.bucketId;
-        const fileId = uploadedFile.$id;
-        const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
-        const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
-        
-        imageUrl = `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${projectId}&mode=admin`;
-      }
-
-      const updatedData = {
-        ...formData,
-        image: imageUrl,
-        keyFeatures: formData.keyFeatures.filter(feature => feature.trim() !== '')
-      };
-
-      await onSave(updatedData);
-    } catch (error) {
-      console.error('Error updating project:', error);
-      alert('Failed to update project. Please try again.');
-    } finally {
-      setLoading(false);
+    // Upload new image if selected
+    if (imageFile) {
+      const uploadedFile = await uploadFile(imageFile);
+      const bucketId = uploadedFile.bucketId;
+      const fileId = uploadedFile.$id;
+      const projectId = process.env.NEXT_PUBLIC_COLLECTION_ID_PROJECTS;
+      const endpoint = process.env.NEXT_PUBLIC_ENDPOINT;
+      
+      imageUrl = `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${'684b0ede0025f3025db8'}&mode=admin`;
     }
-  };
+
+    // Prepare update data - ensure it's not empty
+    const updatedData = {
+      title: formData.title?.trim() || '',
+      content: formData.content?.trim() || '',
+      projectLink: formData.projectLink?.trim() || '',
+      keyFeatures: formData.keyFeatures.filter(feature => feature.trim() !== '') || [],
+      image: imageUrl || ''
+    };
+
+    // Validate that we have at least some data to update
+    const hasValidData = updatedData.title || updatedData.content || 
+                        updatedData.keyFeatures.length > 0 || updatedData.image;
+
+    if (!hasValidData) {
+      throw new Error('Please provide at least one field to update');
+    }
+
+    await onSave(updatedData);
+  } catch (error) {
+    console.error('Error updating project:', error);
+    alert('Failed to update project. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+
+//     try {
+//       let imageUrl = formData.image;
+
+//       // Upload new image if selected
+//       if (imageFile) {
+//         const uploadedFile = await uploadFile(imageFile);
+//         const bucketId = uploadedFile.bucketId;
+//         const fileId = uploadedFile.$id;
+//         const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+//         const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
+        
+//         imageUrl = `${endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${projectId}&mode=admin`;
+//       }
+
+//       const updatedData = {
+//         ...formData,
+//         image: imageUrl,
+//         keyFeatures: formData.keyFeatures.filter(feature => feature.trim() !== '')
+//       };
+
+//       await onSave(updatedData);
+//     } catch (error) {
+//       console.error('Error updating project:', error);
+//       alert('Failed to update project. Please try again.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 p-4">

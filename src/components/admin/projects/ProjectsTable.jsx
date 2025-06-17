@@ -9,6 +9,7 @@ import DeleteConfirmModal from './DeleteConfirmModal';
 import { Search, Plus, Download, Filter, Menu, Eye, Edit, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/ui/Loader/Loader';
+import { toast } from 'react-toastify';
 
 export default function ProjectsTable() {
   const [projects, setProjects] = useState([]);
@@ -56,13 +57,17 @@ export default function ProjectsTable() {
   const confirmDelete = async () => {
     if (selectedProject) {
       try {
-        await deleteProject(selectedProject.$id);
+        const response = await deleteProject(selectedProject.$id);
         setProjects(projects.filter(p => p.$id !== selectedProject.$id));
         setShowDeleteModal(false);
         setSelectedProject(null);
+        if (response.success === true) {
+          toast.success('Project deleted successfully!');
+          loadProjects(); 
+        }
       } catch (error) {
         console.error('Error deleting project:', error);
-        alert('Failed to delete project. Please try again.');
+        toast.error('Failed to delete project. Please try again.');
       }
     }
   };

@@ -1,5 +1,5 @@
 // lib/projectOperations.js
-import { databases } from './appwrite';
+import { databases, storage } from './appwrite';
 
 export async function updateProject(projectId, updatedData) {
   try {
@@ -68,54 +68,88 @@ export async function updateProject(projectId, updatedData) {
   }
 }
 
+
+
 export async function deleteProject(projectId) {
-  try {
-    const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
-    const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_PROJECTS;
-    
-    if (!databaseId || !collectionId) {
-      throw new Error('Missing required environment variables');
-    }
-    
-    if (!projectId) {
-      throw new Error('Project ID is required for delete operation');
-    }
-    
-    // First, get the project to check if it has an associated image
-    const project = await databases.getDocument(
-      databaseId,
-      collectionId,
-      projectId
-    );
-    
-    // Delete the project document
-    await databases.deleteDocument(
-      databaseId,
-      collectionId,
-      projectId
-    );
-    
-    console.log('✅ Project deleted successfully:', {
-      projectId: projectId,
-      title: project.title
-    });
-    
-    return { success: true, deletedProject: project };
-    
-  } catch (error) {
-    console.error('❌ Error deleting project:', error);
-    
-    if (error.code === 404) {
-      throw new Error('Project not found. It may have already been deleted.');
-    } else if (error.code === 401) {
-      throw new Error('Authentication failed. Please refresh and try again.');
-    } else if (error.code === 403) {
-      throw new Error('Permission denied. Unable to delete project.');
-    } else {
-      throw new Error(`Failed to delete project: ${error.message || 'Unknown error occurred'}`);
-    }
+  const dbId = process.env.NEXT_PUBLIC_DATABASE_ID;
+  const colId = process.env.NEXT_PUBLIC_COLLECTION_ID_PROJECTS;
+  const bucketId = process.env.NEXT_PUBLIC_BUCKET_ID_PROJECTS;
+
+  if (!projectId || !dbId || !colId || !bucketId) {
+    throw new Error('Missing project ID or environment variables'); 
   }
+
+  // 1. Fetch project to obtain image file ID
+  const project = await databases.getDocument(dbId, colId, projectId)  
+    .catch(() => { throw new Error('Project not found'); });
+
+  // 2. Delete file from storage if image exists
+  if (project.image) {
+    // Extract fileId from full view URL query param
+    const url = new URL(project.image);
+    const fileId = url.pathname.split('/files/')[1].split('/view')[0];
+    await storage.deleteFile(bucketId, fileId)  
+      .catch(() => console.warn('Image deletion failed or already removed'));
+  }
+
+  // 3. Delete project document
+  await databases.deleteDocument(dbId, colId, projectId)  
+    .catch(err => { throw new Error(`Failed to delete project: ${err.message}`); });
+
+  return { success: true };
 }
+
+
+// export async function deleteProject(projectId) {
+//   try {
+//     const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
+//     const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_PROJECTS;
+    
+//     if (!databaseId || !collectionId) {
+//       throw new Error('Missing required environment variables');
+//     }
+    
+//     if (!projectId) {
+//       throw new Error('Project ID is required for delete operation');
+//     }
+    
+//     // First, get the project to check if it has an associated image
+//     const project = await databases.getDocument(
+//       databaseId,
+//       collectionId,
+//       projectId
+//     );
+    
+//     // Delete the project document
+//     await databases.deleteDocument(
+//       databaseId,
+//       collectionId,
+//       projectId
+//     );
+    
+//     console.log('✅ Project deleted successfully:', {
+//       projectId: projectId,
+//       title: project.title
+//     });
+    
+//     return { success: true, deletedProject: project };
+    
+//   } catch (error) {
+//     console.error('❌ Error deleting project:', error);
+    
+//     if (error.code === 404) {
+//       throw new Error('Project not found. It may have already been deleted.');
+//     } else if (error.code === 401) {
+//       throw new Error('Authentication failed. Please refresh and try again.');
+//     } else if (error.code === 403) {
+//       throw new Error('Permission denied. Unable to delete project.');
+//     } else {
+//       throw new Error(`Failed to delete project: ${error.message || 'Unknown error occurred'}`);
+//     }
+//   }
+// }
+
+//----------------------------
 
 
 // export async function getProjectById(projectId) {

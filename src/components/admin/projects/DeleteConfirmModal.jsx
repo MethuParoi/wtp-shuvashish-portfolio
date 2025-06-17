@@ -36,10 +36,7 @@ export default function DeleteConfirmModal({ project, onConfirm, onClose }) {
               Cancel
             </button>
             <button
-              onClick={() => {
-                onConfirm();
-                toast.success('Project deleted successfully!');
-              }}
+              onClick={onConfirm}
               className="px-6 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
             >
               Delete Project

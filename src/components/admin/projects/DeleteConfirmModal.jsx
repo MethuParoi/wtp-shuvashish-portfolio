@@ -1,6 +1,7 @@
 'use client';
 
 import { AlertTriangle, X } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 export default function DeleteConfirmModal({ project, onConfirm, onClose }) {
   return (
@@ -35,7 +36,10 @@ export default function DeleteConfirmModal({ project, onConfirm, onClose }) {
               Cancel
             </button>
             <button
-              onClick={onConfirm}
+              onClick={() => {
+                onConfirm();
+                toast.success('Project deleted successfully!');
+              }}
               className="px-6 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
             >
               Delete Project

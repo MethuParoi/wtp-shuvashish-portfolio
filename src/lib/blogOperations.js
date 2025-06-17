@@ -97,9 +97,9 @@ export async function deleteBlog(blogId) {
     .catch(() => { throw new Error('blog not found'); });
 
   // 2. Delete file from storage if image exists
-  if (blog.image) {
+  if (blog.featuredImage) {
     // Extract fileId from full view URL query param
-    const url = new URL(blog.image);
+    const url = new URL(blog.featuredImage);
     const fileId = url.pathname.split('/files/')[1].split('/view')[0];
     await storage.deleteFile(bucketId, fileId)  
       .catch(() => console.warn('Image deletion failed or already removed'));

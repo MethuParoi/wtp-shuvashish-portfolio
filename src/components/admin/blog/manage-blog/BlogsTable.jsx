@@ -8,6 +8,8 @@ import EditBlogModal from './EditBlogModal';
 import DeleteBlogConfirmModal from './DeleteBlogConfirmModal';
 import { Search, Plus, Download, Filter, Menu, Eye, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import Loader from '@/components/ui/Loader/Loader';
+import { useRouter } from 'next/navigation';
 
 export default function BlogsTable() {
   const [blogs, setBlogs] = useState([]);
@@ -19,6 +21,8 @@ export default function BlogsTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [blogsPerPage] = useState(10);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     loadBlogs();
@@ -93,7 +97,7 @@ export default function BlogsTable() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">Loading blogs...</div>
+        <Loader/>
       </div>
     );
   }
@@ -107,11 +111,13 @@ export default function BlogsTable() {
           
           {/* Desktop Action Buttons */}
           <div className="hidden sm:flex items-center space-x-3">
-            <button className="inline-flex items-center px-4 py-2 bg-accent text-gray-900 font-medium rounded-lg hover:bg-accent-hover transition-colors">
+            {/* <button className="inline-flex items-center px-4 py-2 bg-accent text-gray-900 font-medium rounded-lg hover:bg-accent-hover transition-colors">
               <Download className="h-4 w-4 mr-2" />
               Export
-            </button>
-            <button className="inline-flex items-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
+            </button> */}
+            <button onClick={() => {
+                router.push('/admin/add-blog');
+            }} className="inline-flex items-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
               <Plus className="h-4 w-4 mr-2" />
               Add Blog
             </button>
@@ -133,11 +139,14 @@ export default function BlogsTable() {
         {showMobileMenu && (
           <div className="sm:hidden mb-4 p-3 bg-neutral-50 rounded-lg border border-neutral-200">
             <div className="flex flex-col space-y-2">
-              <button className="inline-flex items-center justify-center px-4 py-2 bg-accent text-gray-900 font-medium rounded-lg hover:bg-accent-hover transition-colors">
+              {/* <button className="inline-flex items-center justify-center px-4 py-2 bg-accent text-gray-900 font-medium rounded-lg hover:bg-accent-hover transition-colors">
                 <Download className="h-4 w-4 mr-2" />
                 Export
-              </button>
-              <button className="inline-flex items-center justify-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
+              </button> */}
+              <button 
+              onClick={() => {
+                router.push('/admin/add-blog');
+            }} className="inline-flex items-center justify-center px-4 py-2 bg-primary text-gray-900 font-medium rounded-lg hover:bg-primary-hover transition-colors">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Blog
               </button>
@@ -157,10 +166,10 @@ export default function BlogsTable() {
               className="w-full pl-10 pr-4 py-2 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
             />
           </div>
-          <button className="inline-flex items-center justify-center sm:justify-start px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
+          {/* <button className="inline-flex items-center justify-center sm:justify-start px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
             <Filter className="h-4 w-4 mr-2" />
             Filter
-          </button>
+          </button> */}
         </div>
       </div>
 

@@ -1,26 +1,14 @@
-import { fetchBlogs } from '@/lib/fetchBlog';
-import React, { useEffect, useState } from 'react'
+import BlogsTable from '../../../components/admin/blog/manage-blog/BlogsTable';
 
-const page = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-      const loadBlogs = async () => {
-        try {
-          const data = await fetchBlogs(); // Make sure this function is available client-side or fetch from an API route
-          setBlogs(data);
-        } catch (err) {
-          console.error("Error loading blogs:", err);
-          setError("Unable to load blog posts at the moment.");
-        }
-      };
-  
-      loadBlogs();
-    }, []);
+export default function AdminBlogsPage() {
   return (
-    <div>page</div>
-  )
+    <div className="p-6 lg:p-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Blog Management</h1>
+        <p className="text-gray-600">Manage all your blog posts from this dashboard.</p>
+      </div>
+      
+      <BlogsTable />
+    </div>
+  );
 }
-
-export default page

@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
   LayoutDashboard, 
@@ -12,6 +12,7 @@ import {
   LogOut,
   X
 } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const navigationItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -24,6 +25,7 @@ const navigationItems = [
 
 export default function Sidebar({ isOpen, onClose }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <>
@@ -79,7 +81,12 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Logout Button - Fixed at Bottom */}
         <div className="p-4 border-t border-neutral-200 flex-shrink-0">
-          <button className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-neutral-100 hover:text-gray-900 transition-colors">
+          <button onClick={() => {
+                                document.cookie = "admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
+                                toast.success("Logged out successfully!");
+                                router.push("/admin-login"); // Redirect to login page
+                              }} 
+            className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-neutral-100 hover:text-gray-900 transition-colors">
             <LogOut className="h-5 w-5 mr-3 text-gray-500" />
             Sign out
           </button>

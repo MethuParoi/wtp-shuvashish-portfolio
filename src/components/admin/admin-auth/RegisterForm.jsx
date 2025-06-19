@@ -47,30 +47,7 @@ export default function RegisterForm() {
 };
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setError('');
-  //   if (password !== retype) {
-  //     setError('Passwords do not match');
-  //     return;
-  //   }
-  //   setLoading(true);
-  //   try {
-  //     // Replace with your registration API logic
-  //     const response = await createAdmin(email, password);
-  //     // await registerAdmin(email, password);
-  //     if(response){
-  //       // Registration successful, redirect to login
-  //       toast.success('Admin account created successfully. Please log in.');
-  //       router.push('/admin-login');
-  //     }
-  //   } catch (err) {
-  //     setError(err.message);
-  //     toast.error(`Error occurred when creating admin:${err.message}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+ 
 
   return (
     <div className="min-h-screen lg:w-[1200px] flex items-center justify-center p-4">

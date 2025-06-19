@@ -1,3 +1,4 @@
+import { AppContextProvider } from '@/context-api/appContext';
 import './global.css';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         />
         <link rel="icon" type="image/svg+xml" href="/appwrite.svg" />
       </head>
+      <AppContextProvider>
       <body className={"bg-[#FAFAFB] font-[Inter] text-sm text-[#56565C]"}>
         {children}
         <ToastContainer
@@ -35,6 +37,7 @@ export default function RootLayout({ children }) {
               theme="light"
             />
       </body>
+      </AppContextProvider>
     </html>
   );
 }

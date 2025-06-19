@@ -36,37 +36,61 @@ export async function loginAdmin(email, password) {
   return response.json();
 }
 
+//fetch all admins
+export async function fetchAdmins() {
+  try {
+    const res = await databases.listDocuments(DB, COL);
+    return res.documents || [];
+  } catch (error) {
+    console.error('Error fetching admins:', error);
+    return [];
+  }
+}
 
-// export async function registerAdmin(email, password) {
-//   // Create appwrite account
-//   await account.create('unique()', email, password);
-//   // Create admin record
-//   return databases.createDocument(DB, COL, ID.unique(), {
-//     email, role: 'superadmin', createdAt: new Date().toISOString()
-//   }, [Permission.read(Role.user(email)), Permission.update(Role.user(email))]);
-// }
+//update admin password
+export async function updateAdminPassword(adminId, oldPassword, newPassword) {
+  try {
+    // Hash the new password
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(newPassword, salt);
+    
+    // Update the admin document with the new password
+    const updatedAdmin = await databases.updateDocument(
+      DB,
+      COL,
+      adminId,
+      { password: hashedPassword },
+      [
+        Permission.read(Role.any()),
+        Permission.update(Role.any())
+      ]
+    );
+    
+    return updatedAdmin;
+  } catch (error) {
+    console.error('Error updating admin password:', error);
+    throw error;
+  }
+}
 
-// Login
-// export async function loginAdmin(email, password) {
-//   return account.createSession(email, password);
-// }
 
-// // Logout
-// export async function logoutAdmin() {
-//   return account.deleteSession('current');
-// }
 
-// // Update password
-// export async function updatePassword(password) {
-//   return account.updatePassword(password, '', '');
-// }
+// Logout
+export async function logoutAdmin() {
+  return account.deleteSession('current');
+}
 
-// // Fetch current admin profile
-// export async function getAdminProfile() {
-//   return account.get();
-// }
+// Update password
+export async function updatePassword(password) {
+  return account.updatePassword(password, '', '');
+}
 
-// // Add additional admin user
-// export async function addAdmin(email, password) {
-//   return registerAdmin(email, password);
-// }
+// Fetch current admin profile
+export async function getAdminProfile() {
+  return account.get();
+}
+
+// Add additional admin user
+export async function addAdmin(email, password) {
+  return registerAdmin(email, password);
+}

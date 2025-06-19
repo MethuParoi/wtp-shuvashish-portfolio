@@ -1,12 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchInput from '../../ui/SearchInput';
 import UserAvatar from '../../ui/UserAvatar';
 import { Menu, Bell } from 'lucide-react'; // Replace IconComponents import
 
 export default function Header({ onMenuClick, sidebarOpen }) {
-  const [notifications] = useState(3);
+  const [notifications] = useState(0);
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    // Retrieve the email from the cookie
+    const adminCookie = document.cookie.split('; ').find(row => row.startsWith('admin='));
+    if (adminCookie) {
+      const emailValue = adminCookie.split('=')[1];
+      setEmail(emailValue);
+    }
+  }, []);
 
   return (
     <header className="bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-40">
@@ -39,9 +49,9 @@ export default function Header({ onMenuClick, sidebarOpen }) {
           </button>
 
           <UserAvatar 
-            name="John Doe" 
-            email="john@example.com"
-            avatar="/avatar.jpg"
+            
+            email={email}
+            
           />
         </div>
       </div>

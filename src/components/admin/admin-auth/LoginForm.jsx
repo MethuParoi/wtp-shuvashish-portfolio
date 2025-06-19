@@ -21,10 +21,11 @@ export default function LoginForm() {
       // Replace with your login API logic
       const result = await loginAdmin(email, password);
       const { admin } = result;
-      if (admin && admin.userId) {
+      console.log('Login result:', admin);
+      if (result.success === true) {
         // Store userId in cookie or context, then redirect
         toast.success('Login successful!');
-        document.cookie = `admin=${admin.userId}; path=/; secure; sameSite=strict`;
+        document.cookie = `admin=${admin.email}; path=/; secure; sameSite=strict`;
         // Redirect to admin dashboard
         router.push('/admin');
       }

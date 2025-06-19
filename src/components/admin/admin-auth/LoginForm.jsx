@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
+import { loginAdmin } from '@/lib/adminService';
+import { toast } from 'react-toastify';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -17,8 +19,16 @@ export default function LoginForm() {
     setError('');
     try {
       // Replace with your login API logic
-      // await loginAdmin(email, password);
-      router.push('/admin/dashboard');
+      const result = await loginAdmin(email, password);
+      const { admin } = result;
+      if (admin && admin.userId) {
+        // Store userId in cookie or context, then redirect
+        toast.success('Login successful!');
+        document.cookie = `admin=${admin.userId}; path=/; secure; sameSite=strict`;
+        // Redirect to admin dashboard
+        router.push('/admin');
+      }
+
     } catch (err) {
       setError(err.message);
     } finally {

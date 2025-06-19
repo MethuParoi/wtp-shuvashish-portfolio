@@ -3,14 +3,19 @@ import RegisterForm from '@/components/admin/admin-auth/RegisterForm';
 
 
 import { useAppContext } from '@/context-api/appContext';
-import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function RegisterPage() {
-  const { adminExists } = useContext(useAppContext);
-  
-  if(adminExists) {
-    window.location.href = '/admin-login';
-  }
+  const { adminExists } = useAppContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (adminExists) {
+      // client‑side replace, no full reload
+      router.replace('/admin-login');
+    }
+  }, [adminExists, router]);
   
 
   return (

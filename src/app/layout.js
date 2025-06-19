@@ -21,8 +21,8 @@ export default function RootLayout({ children }) {
         />
         <link rel="icon" type="image/svg+xml" href="/appwrite.svg" />
       </head>
-      <AppContextProvider>
       <body className={"bg-[#FAFAFB] font-[Inter] text-sm text-[#56565C]"}>
+      <AppContextProvider>
         {children}
         <ToastContainer
               position="top-right"
@@ -36,8 +36,8 @@ export default function RootLayout({ children }) {
               pauseOnHover
               theme="light"
             />
-      </body>
       </AppContextProvider>
+      </body>
     </html>
   );
 }

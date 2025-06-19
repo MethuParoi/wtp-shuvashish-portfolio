@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 import { loginAdmin } from '@/lib/adminService';
 import { toast } from 'react-toastify';
+import { useAppContext } from '@/context-api/appContext';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ export default function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { adminExists } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -95,9 +97,9 @@ export default function LoginForm() {
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
-          <div className="mt-8 text-center">
+          <div className={`mt-8 text-center ${adminExists ? 'hidden' : ''}`}>
             <p className="text-gray-600">
-              Not a member?{' '}
+              Not an Admin Yet?{' '}
               <a href="/admin-register" className="text-secondary font-medium hover:underline">
                 Register Now
               </a>

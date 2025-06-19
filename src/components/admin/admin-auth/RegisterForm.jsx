@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
+import { createAdmin } from '@/lib/adminService';
+import { toast } from 'react-toastify';
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -14,23 +16,61 @@ export default function RegisterForm() {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    if (password !== retype) {
-      setError('Passwords do not match');
-      return;
+  e.preventDefault();
+  setError('');
+  
+  // Validate passwords match
+  if (password !== retype) {
+    setError('Passwords do not match');
+    return;
+  }
+  
+  // Validate password strength (optional)
+  if (password.length < 8) {
+    setError('Password must be at least 8 characters');
+    return;
+  }
+  
+  setLoading(true);
+  try {
+    const response = await createAdmin({email, password});
+    if(response){
+      toast.success('Admin account created successfully. Please log in.');
+      router.push('/admin-login');
     }
-    setLoading(true);
-    try {
-      // Replace with your registration API logic
-      // await registerAdmin(email, password);
-      router.push('/admin/login');
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    setError(err.message);
+    toast.error(`Error occurred when creating admin: ${err.message}`);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setError('');
+  //   if (password !== retype) {
+  //     setError('Passwords do not match');
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   try {
+  //     // Replace with your registration API logic
+  //     const response = await createAdmin(email, password);
+  //     // await registerAdmin(email, password);
+  //     if(response){
+  //       // Registration successful, redirect to login
+  //       toast.success('Admin account created successfully. Please log in.');
+  //       router.push('/admin-login');
+  //     }
+  //   } catch (err) {
+  //     setError(err.message);
+  //     toast.error(`Error occurred when creating admin:${err.message}`);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen lg:w-[1200px] flex items-center justify-center p-4">

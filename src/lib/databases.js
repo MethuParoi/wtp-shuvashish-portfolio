@@ -1,3 +1,4 @@
+//First time add blog and projects to the database
 import { databases } from "./appwrite";
 import { ID } from "appwrite";
 

@@ -6,13 +6,23 @@ const COL = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
 
 // Register first admin (database document + account creation)
 export async function createAdmin({ email, password }) {
-  // Create Appwrite account session
-  await account.create(email, password) 
-    .catch(err => { throw new Error(err.message); });
-  // Store admin record in database
+  // Create Appwrite account
+  const userAccount = await account.create(ID.unique(), email, password);
+  
+  // Create admin document with proper permissions
   return databases.createDocument(
-    DB, COL, 'unique()', { email, createdAt: new Date().toISOString() },
-    [Permission.read(Role.user(email)), Permission.update(Role.user(email))]
+    DB, 
+    COL, 
+    ID.unique(),
+    {
+      userId: userAccount.$id,
+      email,
+      createdAt: new Date().toISOString()
+    },
+    [
+      Permission.read(Role.user(userAccount.$id)),  // Use user ID instead of email
+      Permission.update(Role.user(userAccount.$id)) // Use user ID instead of email
+    ]
   );
 }
 // export async function registerAdmin(email, password) {

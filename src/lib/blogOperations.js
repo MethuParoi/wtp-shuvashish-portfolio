@@ -112,66 +112,7 @@ export async function deleteBlog(blogId) {
   return { success: true };
 }
 
-// export async function deleteBlog(blogId) {
-//   try {
-//     const databaseId = process.env.NEXT_PUBLIC_blog_ID;
-//     const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_BLOGS;
-//     const bucketId = process.env.NEXT_PUBLIC_BUCKET_ID_blogS;
-    
-//     if (!databaseId || !collectionId) {
-//       throw new Error('Missing required environment variables');
-//     }
-    
-//     if (!blogId) {
-//       throw new Error('Blog ID is required for delete operation');
-//     }
-    
-//     // Get the blog to check if it has an associated image
-//     const blog = await databases.getDocument(
-//       databaseId,
-//       collectionId,
-//       blogId
-//     );
-    
-//     // Delete associated image if exists
-//     if (blog.featuredImage && bucketId) {
-//       try {
-//         const url = new URL(blog.featuredImage);
-//         const fileId = url.pathname.split('/files/')[1].split('/view')[0];
-//         await storage.deleteFile(bucketId, fileId);
-//       } catch (imageError) {
-//         console.warn('Featured image deletion failed or already removed:', imageError);
-//       }
-//     }
-    
-//     // Delete the blog document
-//     await databases.deleteDocument(
-//       databaseId,
-//       collectionId,
-//       blogId
-//     );
-    
-//     console.log('✅ Blog deleted successfully:', {
-//       blogId: blogId,
-//       title: blog.title
-//     });
-    
-//     return { success: true, deletedBlog: blog };
-    
-//   } catch (error) {
-//     console.error('❌ Error deleting blog:', error);
-    
-//     if (error.code === 404) {
-//       throw new Error('Blog not found. It may have already been deleted.');
-//     } else if (error.code === 401) {
-//       throw new Error('Authentication failed. Please refresh and try again.');
-//     } else if (error.code === 403) {
-//       throw new Error('Permission denied. Unable to delete blog.');
-//     } else {
-//       throw new Error(`Failed to delete blog: ${error.message || 'Unknown error occurred'}`);
-//     }
-//   }
-// }
+
 
 export async function getBlogById(blogId) {
   try {

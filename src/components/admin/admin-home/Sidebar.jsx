@@ -10,7 +10,8 @@ import {
   Edit,
   Plus,
   LogOut,
-  X
+  X,
+  User
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 
@@ -20,7 +21,8 @@ const navigationItems = [
   { name: 'All Projects', href: '/admin/all-projects', icon: FolderOpen },
   { name: 'Write New Blog', href: '/admin/add-blog', icon: Plus },
   { name: 'All Blogs', href: '/admin/all-blogs', icon: FileText },
-//   { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Profile', href: '/admin/profile', icon: User },
+  { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -82,7 +84,7 @@ export default function Sidebar({ isOpen, onClose }) {
         {/* Logout Button - Fixed at Bottom */}
         <div className="p-4 border-t border-neutral-200 flex-shrink-0">
           <button onClick={() => {
-                                document.cookie = "admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
+                                document.cookie = "registered=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
                                 toast.success("Logged out successfully!");
                                 router.push("/admin-login"); // Redirect to login page
                               }} 

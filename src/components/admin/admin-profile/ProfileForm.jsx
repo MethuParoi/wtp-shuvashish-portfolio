@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { updatePassword, addAdmin, logoutAdmin } from '../../lib/adminService';
-import Button from '../ui/Button';
+import { updatePassword, addAdmin, logoutAdmin } from '../../../lib/adminService';
+import Button from '../../../components/ui/Navigation/Button';
 
 export default function ProfileForm({ profile }) {
   const [pwd, setPwd] = useState('');

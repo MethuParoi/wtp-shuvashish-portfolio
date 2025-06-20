@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import ClientShell from '../../components/admin/admin-home/ClientShell';
 
 export default function DashboardLayout({ children }) {
-  const adminCookie = cookies().get('admin')?.value;
+  const adminCookie = cookies().get('registered')?.value;
   if (!adminCookie) {
     redirect('/admin-login');
   }

@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { loginAdmin } from '@/lib/adminService';
 import { toast } from 'react-toastify';
 import { useAppContext } from '@/context-api/appContext';
+import Loader from '@/components/ui/Loader/Loader';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -27,9 +28,14 @@ export default function LoginForm() {
       if (result.success === true) {
         // Store userId in cookie or context, then redirect
         toast.success('Login successful!');
-        document.cookie = `admin=${admin.email}; path=/; secure; sameSite=strict`;
         // Redirect to admin dashboard
+        document.cookie = `registered=${admin.email}; path=/; secure; sameSite=strict`;
+        //delay for 2 second
+        // await new Promise(resolve => setTimeout(resolve, 2000));
+        
         router.push('/admin');
+        setLoading(false);
+        
       }
 
     } catch (err) {
@@ -39,8 +45,14 @@ export default function LoginForm() {
     }
   };
 
+
+
   return (
     <div className="min-h-screen flex items-center justify-center lg:w-[1000px] p-4">
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50 z-50">
+          <Loader/>
+        </div>)}
       <div className="w-full max-w-2xl lg:max-w-4xl flex bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Left: Form */}
         <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">

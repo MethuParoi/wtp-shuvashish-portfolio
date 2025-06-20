@@ -1,6 +1,7 @@
 // components/ui/UserAvatar.jsx
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -32,16 +33,16 @@ export default function UserAvatar({ email}) {
       {dropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 z-50">
           <div className="py-1">
-            <a href="/admin/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
+            <Link href="/admin/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
               Your Profile
-            </a>
-            {/* <a href="/admin/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
+            </Link>
+            <Link href="/admin/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
               Settings
-            </a> */}
+            </Link>
             <hr className="my-1 border-neutral-200" />
             <button 
             onClick={() => {
-                      document.cookie = "admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
+                      document.cookie = "registered=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
                       toast.success("Logged out successfully!");
                       router.push("/admin-login"); // Redirect to login page
                     }} 

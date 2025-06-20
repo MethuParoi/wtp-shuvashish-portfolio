@@ -11,7 +11,7 @@ export default function Header({ onMenuClick, sidebarOpen }) {
 
   useEffect(() => {
     // Retrieve the email from the cookie
-    const adminCookie = document.cookie.split('; ').find(row => row.startsWith('admin='));
+    const adminCookie = document.cookie.split('; ').find(row => row.startsWith('registered='));
     if (adminCookie) {
       const emailValue = adminCookie.split('=')[1];
       setEmail(emailValue);
@@ -49,9 +49,7 @@ export default function Header({ onMenuClick, sidebarOpen }) {
           </button>
 
           <UserAvatar 
-            
             email={email}
-            
           />
         </div>
       </div>

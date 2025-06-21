@@ -11,7 +11,9 @@ import {
   Plus,
   LogOut,
   X,
-  User
+  User,
+  Users,
+
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 
@@ -22,7 +24,7 @@ const navigationItems = [
   { name: 'Write New Blog', href: '/admin/add-blog', icon: Plus },
   { name: 'All Blogs', href: '/admin/all-blogs', icon: FileText },
   { name: 'Profile', href: '/admin/profile', icon: User },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Manage Role', href: '/admin/manage-role', icon: Users },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {

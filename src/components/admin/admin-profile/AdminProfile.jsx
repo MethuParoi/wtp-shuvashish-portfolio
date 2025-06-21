@@ -7,11 +7,13 @@ import { getAdminProfile, logoutAdmin } from '@/lib/adminService';
 import { toast } from 'react-toastify';
 import Loader from '@/components/ui/Loader/Loader';
 import { Button } from '@/components/ui/Navigation/Button';
+import UpdatePasswordModal from './UpdatePasswordModal';
 
 export default function AdminProfile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -75,13 +77,20 @@ export default function AdminProfile() {
         </div>
 
         {/* Edit Profile Button */}
-        <div className="absolute top-6 right-6">
+        <div className="absolute top-6 right-6 flex items-center space-x-4">
           <button
             onClick={() => setShowEditModal(true)}
-            className="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-md"
+            className="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-md cursor-pointer"
           >
             <Edit className="h-4 w-4 mr-2" />
             Edit Profile
+          </button>
+          <button
+            onClick={() => setShowUpdatePasswordModal(true)}
+            className="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-md cursor-pointer" 
+          >
+            <Edit className="h-4 w-4 mr-2" />
+            Change Password
           </button>
         </div>
 
@@ -218,6 +227,13 @@ export default function AdminProfile() {
           profile={profile}
           onSave={handleProfileUpdate}
           onClose={() => setShowEditModal(false)}
+        />
+      )}
+      {/* Update Password Modal */}
+      {showUpdatePasswordModal && (
+        <UpdatePasswordModal
+          profile={profile}
+          onClose={() => setShowUpdatePasswordModal(false)}
         />
       )}
     </div>

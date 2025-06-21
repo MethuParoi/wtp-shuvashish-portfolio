@@ -1,5 +1,6 @@
 import { account, databases, Query } from './appwrite';
 import { ID, Permission, Role } from 'appwrite';
+import bcryptjs from 'bcryptjs';
 
 const DB = process.env.NEXT_PUBLIC_DATABASE_ID;
 const COL = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
@@ -48,8 +49,21 @@ export async function fetchAdmins() {
 }
 
 //update admin password
-export async function updateAdminPassword(adminId, oldPassword, newPassword) {
+export async function updateAdminPassword(adminMail, newPassword) {
   try {
+    // First, find the admin document by email
+    const admins = await databases.listDocuments(
+      DB,
+      COL,
+      [Query.equal('email', adminMail)]
+    );
+    
+    if (admins.documents.length === 0) {
+      throw new Error('Admin not found');
+    }
+    
+    const adminDoc = admins.documents[0];
+    
     // Hash the new password
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(newPassword, salt);
@@ -58,12 +72,12 @@ export async function updateAdminPassword(adminId, oldPassword, newPassword) {
     const updatedAdmin = await databases.updateDocument(
       DB,
       COL,
-      adminId,
-      { password: hashedPassword },
-      [
-        Permission.read(Role.any()),
-        Permission.update(Role.any())
-      ]
+      adminDoc.$id, // Use the document ID, not email
+      { password: hashedPassword }
+      // [
+      //   Permission.read(Role.any()),
+      //   Permission.update(Role.any())
+      // ]
     );
     
     return updatedAdmin;
@@ -74,16 +88,6 @@ export async function updateAdminPassword(adminId, oldPassword, newPassword) {
 }
 
 
-
-// Logout
-export async function logoutAdmin() {
-  return account.deleteSession('current');
-}
-
-// Update password
-export async function updatePassword(password) {
-  return account.updatePassword(password, '', '');
-}
 
 // Fetch current admin profile
 export async function getAdminProfile(email) {

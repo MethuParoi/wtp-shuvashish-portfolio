@@ -9,6 +9,7 @@ export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [retype, setRetype] = useState('');
+  const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showRetype, setShowRetype] = useState(false);
   const [error, setError] = useState('');
@@ -33,7 +34,7 @@ export default function RegisterForm() {
   
   setLoading(true);
   try {
-    const response = await createAdmin({email, password});
+    const response = await createAdmin({email, password, name});
     if(response){
       toast.success('Admin account created successfully. Please log in.');
       router.push('/admin-login');
@@ -53,7 +54,7 @@ export default function RegisterForm() {
     <div className="min-h-screen lg:w-[1200px] flex items-center justify-center p-4">
       <div className="w-full max-w-2xl lg:max-w-5xl flex bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Left: Form */}
-        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+        <div className="w-full md:w-1/2 px-8 py-5 md:px-12 flex flex-col justify-center">
           <div className="flex flex-col items-center mb-8">
             <div className="w-28 h-14 bg-primary rounded-lg flex items-center justify-center mb-4 gap-x-2">
               <span className="text-2xl font-bold text-white">Admin</span>
@@ -64,7 +65,18 @@ export default function RegisterForm() {
             <p className="text-gray-600 text-center">Set up your admin credentials to get started</p>
           </div>
           {error && <div className="mb-4 text-red-600 text-center">{error}</div>}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary"
+                placeholder="John Doe"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
               <input

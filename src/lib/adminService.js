@@ -1,4 +1,4 @@
-import { account, databases } from './appwrite';
+import { account, databases, Query } from './appwrite';
 import { ID, Permission, Role } from 'appwrite';
 
 const DB = process.env.NEXT_PUBLIC_DATABASE_ID;
@@ -6,11 +6,11 @@ const COL = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
 
 
 // Register admin through API route (which handles hashing)
-export async function createAdmin({ email, password }) {
+export async function createAdmin({ email, password, name }) {
   const response = await fetch('/api/admin/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password, name })
   });
   
   if (!response.ok) {
@@ -86,8 +86,25 @@ export async function updatePassword(password) {
 }
 
 // Fetch current admin profile
-export async function getAdminProfile() {
-  return account.get();
+export async function getAdminProfile(email) {
+  const databaseId = process.env.NEXT_PUBLIC_DATABASE_ID;
+  const collectionId = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
+      
+      // if (!databaseId || !collectionId) {
+      //   // Check fallback admins
+      //   return fallbackadmins.find(admin => admin.slug === slug) || null;
+      // }
+      
+      const res = await databases.listDocuments(databaseId, collectionId, [
+        Query.equal('email', email),
+      ]);
+      
+      // If not found in database, check fallback
+      // if (!res.documents || res.documents.length === 0) {
+      //   return fallbackadmins.find(admin => admin.slug === slug) || null;
+      // }
+      
+      return res.documents[0];
 }
 
 // Add additional admin user

@@ -7,7 +7,7 @@ const COL = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
 
 export async function POST(request) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, name } = await request.json();
     
     // Initialize Appwrite client
     const client = new Client()
@@ -21,7 +21,8 @@ export async function POST(request) {
     const userAccount = await account.create(
       ID.unique(), 
       email, 
-      password
+      password,
+      name
     );
     
     // Hash password for database storage
@@ -37,6 +38,7 @@ export async function POST(request) {
         userId: userAccount.$id,
         email,
         password: hashedPassword,
+        name,
         role: 'superadmin', 
         createdAt: new Date().toISOString()
       },

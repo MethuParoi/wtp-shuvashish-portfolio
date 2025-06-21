@@ -5,6 +5,8 @@ import { Edit, MapPin, Mail, Phone, Globe, Shield, Calendar, User } from 'lucide
 import EditProfileModal from './EditProfileModal';
 import { getAdminProfile, logoutAdmin } from '@/lib/adminService';
 import { toast } from 'react-toastify';
+import Loader from '@/components/ui/Loader/Loader';
+import { Button } from '@/components/ui/Navigation/Button';
 
 export default function AdminProfile() {
   const [profile, setProfile] = useState(null);
@@ -13,13 +15,19 @@ export default function AdminProfile() {
   const router = useRouter();
 
   useEffect(() => {
-    loadProfile();
+    // Retrieve the email from the cookie
+    const adminCookie = document.cookie.split('; ').find(row => row.startsWith('registered='));
+    if (adminCookie) {
+      const email = adminCookie.split('=')[1];
+      loadProfile(email);
+    }
   }, []);
 
-  const loadProfile = async () => {
+  const loadProfile = async (email) => {
     try {
       setLoading(true);
-      const data = await getAdminProfile();
+      const data = await getAdminProfile(email);
+      // console.log('Profile data:', data);
       setProfile(data);
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -49,7 +57,7 @@ export default function AdminProfile() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <Loader/>
       </div>
     );
   }
@@ -110,7 +118,7 @@ export default function AdminProfile() {
             </div>
 
             <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1 text-gray-400" />
                 <span className="text-gray-600">Age : </span>
                 <span className="font-medium ml-1">{profile?.age || 'N/A'}</span>
@@ -120,7 +128,7 @@ export default function AdminProfile() {
                 <User className="h-4 w-4 mr-1 text-gray-400" />
                 <span className="text-gray-600">Gender : </span>
                 <span className="font-medium ml-1">{profile?.gender || 'N/A'}</span>
-              </div>
+              </div> */}
               
               <div className="flex items-center">
                 <span className="text-gray-600">Status : </span>
@@ -154,7 +162,7 @@ export default function AdminProfile() {
             </div>
 
             {/* Contact */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-neutral-200">
+            {/* <div className="bg-white rounded-lg p-6 shadow-sm border border-neutral-200">
               <div className="flex items-center mb-3">
                 <Phone className="h-5 w-5 text-accent mr-3" />
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Contact</h3>
@@ -162,10 +170,10 @@ export default function AdminProfile() {
               <p className="text-lg font-semibold text-gray-900">
                 {profile?.phone || 'Not specified'}
               </p>
-            </div>
+            </div> */}
 
             {/* Region */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-neutral-200">
+            {/* <div className="bg-white rounded-lg p-6 shadow-sm border border-neutral-200">
               <div className="flex items-center mb-3">
                 <Globe className="h-5 w-5 text-neutral-600 mr-3" />
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Region</h3>
@@ -173,24 +181,33 @@ export default function AdminProfile() {
               <p className="text-lg font-semibold text-gray-900">
                 {profile?.region || 'Not specified'}
               </p>
-            </div>
-          </div>
+            </div> */}
+          </div> 
 
           {/* Account Actions */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={handleLogout}
-              className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+            <Button
+              onClick={() => {
+                                document.cookie = "registered=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure; sameSite=strict";
+                                toast.success("Logged out successfully!");
+                                router.push("/admin-login"); // Redirect to login page
+                              }} 
+              variant="destructive"
+              size="default"
+              className=""
+              // className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
             >
               Logout
-            </button>
+            </Button>
             
-            <button
+            <Button
               onClick={() => router.push('/admin')}
-              className="px-6 py-3 border border-neutral-200 text-gray-700 font-medium rounded-lg hover:bg-neutral-50 transition-colors"
+              variant="outline"
+              size="default"
+              
             >
               Back to Dashboard
-            </button>
+            </Button>
           </div>
         </div>
       </div>

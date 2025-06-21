@@ -27,7 +27,6 @@ export default function LoginForm() {
       console.log('Login result:', admin);
       if (result.success === true) {
         // Store userId in cookie or context, then redirect
-        toast.success('Login successful!');
         // Redirect to admin dashboard
         document.cookie = `registered=${admin.email}; path=/; secure; sameSite=strict`;
         //delay for 2 second
@@ -35,6 +34,7 @@ export default function LoginForm() {
         
         router.push('/admin');
         setLoading(false);
+        toast.success('Login successful!');
         
       }
 

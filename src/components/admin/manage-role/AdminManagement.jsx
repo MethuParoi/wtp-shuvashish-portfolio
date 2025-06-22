@@ -105,17 +105,17 @@ export default function AdminManagement() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
+        {/* <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
           <div className="flex items-center">
             <div className="p-3 rounded-lg bg-accent-50">
               <UserPlus className="h-6 w-6 text-accent" />
             </div>
             <div className="ml-4">
-              <h3 className="text-2xl font-bold text-gray-900">{admins.length}</h3>
+              <h3 className="text-2xl font-bold text-gray-900">{admins.length+1}</h3>
               <p className="text-sm text-gray-600">Total Users</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Action Buttons and Filters */}

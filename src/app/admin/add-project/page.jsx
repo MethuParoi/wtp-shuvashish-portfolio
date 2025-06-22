@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 export default function UploadPage() {
     const role = cookies().get('role')?.value;
-      if (role !== 'admin') {
+      if (role !== 'admin' && role !== "superadmin") {
         redirect('/admin-login');
       }
 

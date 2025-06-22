@@ -5,7 +5,7 @@ import React from 'react'
 
 const page = () => {
   const role = cookies().get('role')?.value;
-      if (role !== 'admin') {
+      if (role !== 'admin' && role !== "superadmin") {
         redirect('/admin-login');
       }
 

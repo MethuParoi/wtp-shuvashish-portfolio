@@ -13,10 +13,10 @@ export default function UserAvatar({ email}) {
   const router = useRouter();
 
   return (
-    <div className="relative cursor-pointer">
+    <div className="relative">
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+        className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer"
       >
         <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center">
           
@@ -31,14 +31,14 @@ export default function UserAvatar({ email}) {
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 z-50 ">
           <div className="py-1">
             <Link href="/admin/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
               Your Profile
             </Link>
-            <Link href="/admin/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
+            {/* <Link href="/admin/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-neutral-100">
               Settings
-            </Link>
+            </Link> */}
             <hr className="my-1 border-neutral-200" />
             <button 
             onClick={() => {

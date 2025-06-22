@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 export default function AdminProjectsPage() {
   const role = cookies().get('role')?.value;
-      if (role !== 'admin') {
+      if (role !== 'admin' && role !== "superadmin") {
         redirect('/admin-login');
       }
 

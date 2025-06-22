@@ -78,7 +78,7 @@ export default function AdminProfile({role}) {
 
         {/* Edit Profile Button */}
         {/* Profile editing options are only available for admin. */}
-        <div className={`absolute top-6 right-6 flex items-center space-x-4 ${role !== 'admin' ? 'hidden' : ''}`}>
+        <div className={`absolute top-6 right-6 flex items-center space-x-4 ${role !== 'admin' && role !== "superadmin" ? 'hidden' : ''}`}>
           <button
             onClick={() => setShowEditModal(true)}
             className="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-md cursor-pointer"

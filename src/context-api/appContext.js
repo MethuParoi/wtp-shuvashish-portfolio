@@ -18,9 +18,10 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     // run once on app‐startup
+    // Check if there are more than one admin user(first two admin can register using register page)
     fetchAdmins()
       .then(res => {
-        if (Array.isArray(res) && res.length > 0) {
+        if (Array.isArray(res) && res.length > 1) {
           setAdminExists(true);
         }
       })

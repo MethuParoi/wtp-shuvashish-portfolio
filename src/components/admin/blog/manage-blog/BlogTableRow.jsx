@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Eye, Edit, Trash2 } from 'lucide-react';
 
-export default function BlogTableRow({ blog, serialNumber, onView, onEdit, onDelete }) {
+export default function BlogTableRow({ blog, serialNumber, onView, onEdit, onDelete, role }) {
   const [imageError, setImageError] = useState(false);
 
   const truncateTitle = (title, maxLength = 30) => {
@@ -96,9 +96,12 @@ export default function BlogTableRow({ blog, serialNumber, onView, onEdit, onDel
           </button>
           
           <button
+          disabled={role !== 'admin'}
+            className={`p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded ${
+            role !== 'admin' ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             onClick={onDelete}
-            className="p-1.5 sm:p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
-            title="Delete Blog"
+            
           >
             <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>

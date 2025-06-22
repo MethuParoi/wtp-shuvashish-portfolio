@@ -21,6 +21,19 @@ export default function BlogsTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [blogsPerPage] = useState(10);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [role, setRole] = useState('');
+
+ useEffect(() => {
+  const roleCookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('role='));
+  if (roleCookie) {
+    const value = roleCookie.split('=')[1];
+    setRole(value); // Only "admin" or "moderator"
+  }
+}, []);
+
+  // console.log('Role:', role);
 
   const router = useRouter();
 
@@ -221,8 +234,12 @@ export default function BlogsTable() {
                         <Edit className="h-3.5 w-3.5" />
                       </button>
                       <button
+                        // disable deleting access for moderators
+                        disabled={role !== 'admin'}
                         onClick={() => handleDelete(blog)}
-                        className="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
+                        className={`p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded ${
+                        role !== 'admin' ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                         title="Delete"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -272,6 +289,7 @@ export default function BlogsTable() {
                   onView={() => handleView(blog)}
                   onEdit={() => handleEdit(blog)}
                   onDelete={() => handleDelete(blog)}
+                  role={role}
                 />
               ))}
             </tbody>

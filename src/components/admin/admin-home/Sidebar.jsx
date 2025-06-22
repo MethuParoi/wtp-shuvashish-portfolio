@@ -16,8 +16,9 @@ import {
 
 } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
-const navigationItems = [
+const navigationItemsAdmin = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Add New Project', href: '/admin/add-project', icon: FolderOpen },
   { name: 'All Projects', href: '/admin/all-projects', icon: FolderOpen },
@@ -27,9 +28,28 @@ const navigationItems = [
   { name: 'Manage Role', href: '/admin/manage-role', icon: Users },
 ];
 
+const navigationItemsModerator = [
+  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Write New Blog', href: '/admin/add-blog', icon: Plus },
+  { name: 'All Blogs', href: '/admin/all-blogs', icon: FileText },
+  { name: 'Profile', href: '/admin/profile', icon: User },
+ 
+];
+
 export default function Sidebar({ isOpen, onClose }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [navItems, setNavItems] = useState([]);
+
+  useEffect(() => {
+      // Retrieve the email from the cookie
+      const role = document.cookie.split('; ').find(row => row.startsWith('role='));
+      if (role === "moderator") {
+        setNavItems(navigationItemsModerator);
+      } else {
+        setNavItems(navigationItemsAdmin);
+      }
+    }, []);
 
   return (
     <>
@@ -60,7 +80,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Navigation - Scrollable if needed */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          {navigationItems.map((item) => {
+          {navItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             

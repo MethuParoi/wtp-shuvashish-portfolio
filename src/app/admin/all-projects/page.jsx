@@ -1,7 +1,14 @@
 import ProjectsTable from "@/components/admin/projects/ProjectsTable";
+import { redirect } from 'next/navigation';
+import { cookies } from "next/headers";
 
 
 export default function AdminProjectsPage() {
+  const role = cookies().get('role')?.value;
+      if (role !== 'admin') {
+        redirect('/admin-login');
+      }
+
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-8">

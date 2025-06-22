@@ -9,7 +9,7 @@ import Loader from '@/components/ui/Loader/Loader';
 import { Button } from '@/components/ui/Navigation/Button';
 import UpdatePasswordModal from './UpdatePasswordModal';
 
-export default function AdminProfile() {
+export default function AdminProfile({role}) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -77,7 +77,8 @@ export default function AdminProfile() {
         </div>
 
         {/* Edit Profile Button */}
-        <div className="absolute top-6 right-6 flex items-center space-x-4">
+        {/* Profile editing options are only available for admin. */}
+        <div className={`absolute top-6 right-6 flex items-center space-x-4 ${role !== 'admin' ? 'hidden' : ''}`}>
           <button
             onClick={() => setShowEditModal(true)}
             className="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors shadow-md cursor-pointer"

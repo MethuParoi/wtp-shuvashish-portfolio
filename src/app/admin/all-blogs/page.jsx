@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import BlogsTable from '../../../components/admin/blog/manage-blog/BlogsTable';
 
 export default function AdminBlogsPage() {
@@ -8,7 +9,7 @@ export default function AdminBlogsPage() {
         <p className="text-gray-600">Manage all your blog posts from this dashboard.</p>
       </div>
       
-      <BlogsTable />
+      <BlogsTable/>
     </div>
   );
 }

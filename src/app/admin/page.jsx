@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [role, setRole] = useState(""); 
   useEffect(() => {
       const loadData = async () => {
         setLoading(true);
@@ -33,6 +34,17 @@ export default function AdminDashboard() {
       loadData();
     }, []);
 
+    //identify if admin or moderator
+    useEffect(() => {
+      const roleCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('role='));
+      if (roleCookie) {
+        const value = roleCookie.split('=')[1];
+        setRole(value); // Only "admin" or "moderator"
+      }
+    }, []);
+
     if (loading) {
       return (
         <div className="flex items-center justify-center h-screen">
@@ -48,12 +60,12 @@ export default function AdminDashboard() {
               <p className="text-gray-600">Welcome back! Here's what's happening with your portfolio.</p>
             </div>
 
-            {/* Stats Cards Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Stats Cards Grid */}
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 ${role === "moderator" ? "lg:px-20 xl:px-42" : ""}`}>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 `}>
 
-              {projects && (
+              {role !== "moderator" && projects && (
                 <StatsCard value={projects.length} title="Total Projects" icon="projects" trend="+12%" trendDirection="up"/>
               )}
 
@@ -65,19 +77,20 @@ export default function AdminDashboard() {
                 
             </div>
             <div>
-                <QuickActions />
+                <QuickActions role={role}/>
             </div>
-            </div>
+          </div>
 
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Recent Projects - Takes 2 columns */}
-              <div className="">
+              <div className={`${role === "moderator" ? "hidden" : ""}`}>
+                
                 <RecentProjects type="project" content={projects}/>
               </div>
               
               {/* Quick Actions Sidebar */}
-              <div className="">
+              <div className={`${role === "moderator" ? "lg:col-span-2" : ""}`}>
                 <RecentProjects type="blog" content={blogs}/>
               </div>
             </div>

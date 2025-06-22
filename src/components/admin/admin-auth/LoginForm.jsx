@@ -29,6 +29,7 @@ export default function LoginForm() {
         // Store userId in cookie or context, then redirect
         // Redirect to admin dashboard
         document.cookie = `registered=${admin.email}; path=/; secure; sameSite=strict`;
+        document.cookie = `role=${admin.role}; path=/; secure; sameSite=strict`;
         //delay for 2 second
         // await new Promise(resolve => setTimeout(resolve, 2000));
         

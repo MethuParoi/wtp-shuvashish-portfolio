@@ -45,6 +45,8 @@ export async function POST(request) {
       admin: {
         id:     admin.$id,
         email:  admin.email,
+        role:   admin.role,
+        name:   admin.name,
         // Use the Appwrite session ID (always a valid 36‑char string)
         // userId: session.$id,
       }

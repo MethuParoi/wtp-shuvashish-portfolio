@@ -1,32 +1,44 @@
 'use client';
 
 import { Plus, Edit, Upload, Settings } from 'lucide-react'; // Replace IconComponents import
+import { useEffect, useState } from 'react';
 
 const quickActions = [
-  {
-    title: "Add New Project",
-    description: "Create a new project entry",
-    icon: Plus,
-    href: "/admin/add-project",
-    color: "primary"
-  },
   {
     title: "Write New Blog",
     description: "Create a new blog post",
     icon: Edit,
     href: "/admin/add-blog",
     color: "secondary"
+  },
+  {
+    title: "Add New Project",
+    description: "Create a new project entry",
+    icon: Plus,
+    href: "/admin/add-project",
+    color: "primary"
   }
+  
   
 ];
 
-export default function QuickActions() {
+export default function QuickActions({role}) {
+  const [actions, setActions] = useState([]);
+
+  useEffect(() => {
+    if (role === 'moderator') {
+      setActions(quickActions.filter(action => action.title !== "Add New Project"));
+    } else {
+      setActions(quickActions);
+    }
+  }, [role]);
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-neutral-200 py-2 px-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-2">Quick Links</h2>
       
       <div className="space-y-2">
-        {quickActions.map((action, index) => {
+        {actions.map((action, index) => {
           const Icon = action.icon;
           
           return (

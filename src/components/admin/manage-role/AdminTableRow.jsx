@@ -100,7 +100,7 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
         </span>
       </td>
       
-      <td className="px-6 py-4 whitespace-nowrap">
+      {/* <td className="px-6 py-4 whitespace-nowrap">
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
           admin.status === 'active' 
             ? 'bg-accent text-gray-900' 
@@ -108,7 +108,7 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
         }`}>
           {admin.status === 'active' ? 'Active' : 'Inactive'}
         </span>
-      </td>
+      </td> */}
       
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {formatDate(admin.createdAt)}

@@ -16,7 +16,7 @@ export default function AdminTable({ admins, onDeleteUser, onRefresh }) {
     <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
       {/* Table Header */}
       <div className="px-6 py-4 border-b border-neutral-200 bg-neutral-50">
-        <h2 className="text-lg font-semibold text-gray-900">User Management</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Admin & Moderator Management</h2>
       </div>
 
       {/* Responsive Table */}
@@ -39,9 +39,9 @@ export default function AdminTable({ admins, onDeleteUser, onRefresh }) {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Role
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Status
-              </th>
+              </th> */}
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Created
               </th>
@@ -67,7 +67,7 @@ export default function AdminTable({ admins, onDeleteUser, onRefresh }) {
       {/* Empty State */}
       {admins.length === 0 && (
         <div className="p-8 text-center">
-          <p className="text-gray-500">No admin users found.</p>
+          <p className="text-gray-500">No Admin or Moderator to Manage.</p>
         </div>
       )}
 

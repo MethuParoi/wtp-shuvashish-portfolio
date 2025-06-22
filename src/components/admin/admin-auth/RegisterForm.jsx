@@ -22,13 +22,13 @@ export default function RegisterForm() {
   
   // Validate passwords match
   if (password !== retype) {
-    setError('Passwords do not match');
+    toast.error('Passwords do not match');
     return;
   }
   
   // Validate password strength (optional)
-  if (password.length < 6) {
-    setError('Password must be at least 6 characters');
+  if (password.length < 8) {
+    toast.error('Password must be at least 8 characters');
     return;
   }
   

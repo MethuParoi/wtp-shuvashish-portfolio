@@ -1,69 +1,67 @@
 import { databases, account, ID, Query, Permission, Role } from './appwrite';
-import bcryptjs from 'bcryptjs';
 
 const DB = process.env.NEXT_PUBLIC_DATABASE_ID;
 const COL = process.env.NEXT_PUBLIC_COLLECTION_ID_ADMINS;
 
-// Create new admin user
-export async function createNewAdmin({ email, password, name, role = 'admin' }) {
-  try {
-    // Create Appwrite user account
-    const userAccount = await account.create(ID.unique(), email, password, name);
-    
-    // Hash password for database storage
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
-    
-    // Create admin document
-    const adminDoc = await databases.createDocument(
-      DB,
-      COL,
-      ID.unique(),
-      {
-        userId: userAccount.$id,
-        email,
-        password: hashedPassword,
-        name,
-        role,
-        createdAt: new Date().toISOString(),
-        status: 'active'
-      },
-      [
-        Permission.read(Role.any()),
-        Permission.update(Role.any())
-      ]
-    );
-    
-    return { success: true, admin: adminDoc };
-  } catch (error) {
-    console.error('Error creating admin:', error);
-    throw new Error(`Failed to create ${role}: ${error.message}`);
+// Create new admin
+export async function createNewAdmin({ email, password, name }) {
+  const response = await fetch('/api/manage-role/add-new-admin', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, name })
+  });
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to create admin');
   }
+  
+  return response.json();
 }
 
-// Create new moderator user
+// Create new moderator
 export async function createNewModerator({ email, password, name }) {
-  return createNewAdmin({ email, password, name, role: 'moderator' });
+  const response = await fetch('/api/manage-role/add-new-moderator', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, name })
+  });
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to create moderator');
+  }
+  
+  return response.json();
 }
 
-// Fetch all admins and moderators
+// Fetch all admins
 export async function fetchAllAdmins() {
   try {
-    const response = await databases.listDocuments(
-      DB,
-      COL,
-      [
-        Query.orderDesc('createdAt'),
-        Query.limit(100)
-      ]
-    );
-    
-    return response.documents;
+    const res = await databases.listDocuments(DB, COL, [
+      Query.or([
+        Query.equal('role', 'admin'),
+        Query.equal('role', 'moderator')
+      ])
+    ]);
+    return res.documents || [];
   } catch (error) {
     console.error('Error fetching admins:', error);
-    throw new Error('Failed to fetch admin users');
+    return [];
   }
 }
+
+// export async function fetchAdmins() {
+//   try {
+//     const res = await databases.listDocuments(DB, COL, [
+//       Query.equal('role', ['admin', 'moderator']),
+//     ]);
+//     return res.documents || [];
+//   } catch (error) {
+//     console.error('Error fetching admins:', error);
+//     return [];
+//   }
+// }
 
 // Delete admin/moderator
 export async function deleteAdminUser(documentId) {
@@ -76,18 +74,3 @@ export async function deleteAdminUser(documentId) {
   }
 }
 
-// Update admin/moderator status
-export async function updateAdminStatus(documentId, status) {
-  try {
-    await databases.updateDocument(
-      DB,
-      COL,
-      documentId,
-      { status, updatedAt: new Date().toISOString() }
-    );
-    return { success: true };
-  } catch (error) {
-    console.error('Error updating status:', error);
-    throw new Error('Failed to update user status');
-  }
-}

@@ -4,10 +4,12 @@ import { Plus, Users, Shield, UserPlus } from 'lucide-react';
 import AdminTable from './AdminTable';
 import AddAdminModal from './AddAdminModal';
 import AddModeratorModal from './AddModeratorModal';
-import { fetchAllAdmins } from '../../../lib/roleManagement';
 import { toast } from 'react-toastify';
+import Loader from '@/components/ui/Loader/Loader';
+import { fetchAllAdmins } from '@/lib/roleManagement';
 
 export default function AdminManagement() {
+  const [reloadAdmins, setReloadAdmins] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddAdminModal, setShowAddAdminModal] = useState(false);
@@ -17,12 +19,13 @@ export default function AdminManagement() {
 
   useEffect(() => {
     loadAdmins();
-  }, []);
+  }, [reloadAdmins]);
 
   const loadAdmins = async () => {
     try {
       setLoading(true);
       const data = await fetchAllAdmins();
+      console.log('Fetched admins:', data);
       setAdmins(data);
     } catch (error) {
       toast.error('Failed to load admin users');
@@ -35,13 +38,13 @@ export default function AdminManagement() {
   const handleAddAdmin = (newAdmin) => {
     setAdmins(prev => [newAdmin, ...prev]);
     setShowAddAdminModal(false);
-    toast.success('Admin created successfully');
+    // toast.success('Admin created successfully');
   };
 
   const handleAddModerator = (newModerator) => {
     setAdmins(prev => [newModerator, ...prev]);
     setShowAddModeratorModal(false);
-    toast.success('Moderator created successfully');
+    // toast.success('Moderator created successfully');
   };
 
   const handleDeleteUser = (deletedUserId) => {
@@ -51,19 +54,19 @@ export default function AdminManagement() {
 
   // Filter admins based on search and role
   const filteredAdmins = admins.filter(admin => {
-    const matchesSearch = admin.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         admin.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = admin?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         admin?.email?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === 'all' || admin.role === roleFilter;
     return matchesSearch && matchesRole;
   });
 
-  const adminCount = admins.filter(admin => admin.role === 'admin').length;
-  const moderatorCount = admins.filter(admin => admin.role === 'moderator').length;
+  const adminCount = admins.filter(admin => admin?.role === 'admin').length;
+  const moderatorCount = admins.filter(admin => admin?.role === 'moderator').length;
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center">
+        <Loader/>
       </div>
     );
   }
@@ -72,7 +75,7 @@ export default function AdminManagement() {
     <div className="p-6 lg:p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Management</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin & Moderator Management</h1>
         <p className="text-gray-600">Manage admin users and moderators for your portfolio system.</p>
       </div>
 
@@ -84,7 +87,7 @@ export default function AdminManagement() {
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div className="ml-4">
-              <h3 className="text-2xl font-bold text-gray-900">{adminCount}</h3>
+              <h3 className="text-2xl font-bold text-gray-900">{adminCount+1}</h3>
               <p className="text-sm text-gray-600">Total Admins</p>
             </div>
           </div>
@@ -173,6 +176,7 @@ export default function AdminManagement() {
       {/* Modals */}
       {showAddAdminModal && (
         <AddAdminModal
+          setReloadAdmins={setReloadAdmins}
           onAddAdmin={handleAddAdmin}
           onClose={() => setShowAddAdminModal(false)}
         />
@@ -180,6 +184,7 @@ export default function AdminManagement() {
 
       {showAddModeratorModal && (
         <AddModeratorModal
+          setReloadAdmins={setReloadAdmins}
           onAddModerator={handleAddModerator}
           onClose={() => setShowAddModeratorModal(false)}
         />

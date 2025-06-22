@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { X, Users, Eye, EyeOff } from 'lucide-react';
-import { createNewModerator } from '@/lib/roleManagement';
 import { toast } from 'react-toastify';
+import { createNewModerator } from '@/lib/roleManagement';
 
-export default function AddModeratorModal({ onAddModerator, onClose }) {
+export default function AddModeratorModal({ onAddModerator, onClose, setReloadAdmins }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -68,8 +68,14 @@ export default function AddModeratorModal({ onAddModerator, onClose }) {
         email: formData.email.trim(),
         password: formData.password
       });
+
+      if(result.success === true) {
+        onAddModerator(result.admin);
+        toast.success('Moderator created successfully');
+        setReloadAdmins((prev) => !prev);
+        onClose();
+      }
       
-      onAddModerator(result.admin);
     } catch (error) {
       toast.error(error.message);
     } finally {

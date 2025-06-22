@@ -23,10 +23,10 @@ export default function UpdatePasswordModal({ profile, onClose }) {
         setLoading(false);
         throw new Error('Old password does not match');
       }
-      if (pwd.length < 6) {
-        toast.error('Password must be at least 6 characters long');
+      if (pwd.length < 8) {
+        toast.error('Password must be at least 8 characters long');
         setLoading(false);
-        throw new Error('Password must be at least 6 characters long');
+        throw new Error('Password must be at least 8 characters long');
       }
       if (pwd === oldPwd) {
         toast.error('New password cannot be the same as old password');

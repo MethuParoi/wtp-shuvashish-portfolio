@@ -4,7 +4,7 @@ import { X, Shield, Eye, EyeOff } from 'lucide-react';
 import { createNewAdmin } from '@/lib/roleManagement';
 import { toast } from 'react-toastify';
 
-export default function AddAdminModal({ onAddAdmin, onClose }) {
+export default function AddAdminModal({ onAddAdmin, onClose, setReloadAdmins }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -67,10 +67,15 @@ export default function AddAdminModal({ onAddAdmin, onClose }) {
         name: formData.name.trim(),
         email: formData.email.trim(),
         password: formData.password,
-        role: 'admin'
+        // role: 'admin'
       });
       
-      onAddAdmin(result.admin);
+      if(result.success === true) {
+        onAddAdmin(result.admin);
+        toast.success('Admin created successfully');
+        setReloadAdmins((prev) => !prev);
+        onClose();
+      }
     } catch (error) {
       toast.error(error.message);
     } finally {

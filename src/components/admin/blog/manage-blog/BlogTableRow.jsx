@@ -81,7 +81,7 @@ export default function BlogTableRow({ blog, serialNumber, onView, onEdit, onDel
         <div className="flex items-center justify-end space-x-1 sm:space-x-2">
           <button
             onClick={onView}
-            className="p-1.5 sm:p-2 text-secondary hover:text-secondary-hover hover:bg-secondary-50 rounded-lg transition-colors"
+            className="p-1.5 sm:p-2 text-secondary hover:text-secondary-hover hover:bg-secondary-50 rounded-lg transition-colors cursor-pointer"
             title="View Blog"
           >
             <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -89,16 +89,16 @@ export default function BlogTableRow({ blog, serialNumber, onView, onEdit, onDel
           
           <button
             onClick={onEdit}
-            className="p-1.5 sm:p-2 text-primary hover:text-primary-hover hover:bg-primary-50 rounded-lg transition-colors"
+            className="p-1.5 sm:p-2 text-primary hover:text-primary-hover hover:bg-primary-50 rounded-lg transition-colors cursor-pointer" 
             title="Edit Blog"
           >
             <Edit className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
           
           <button
-          disabled={role !== 'admin'}
-            className={`p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded ${
-            role !== 'admin' ? 'opacity-50 cursor-not-allowed' : ''
+          disabled={role !== 'admin' && role !== 'superadmin'}
+            className={`p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded cursor-pointer ${
+            role !== 'admin' && role !== 'superadmin' ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             onClick={onDelete}
             

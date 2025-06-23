@@ -4,17 +4,27 @@ import { Eye, EyeOff, Trash2, MoreVertical, UserCheck, UserX } from 'lucide-reac
 import { deleteAdminUser, updateAdminStatus } from '@/lib/roleManagement';
 import { toast } from 'react-toastify';
 
-export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh }) {
+export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh, setSelectedUser, setShowDeleteModal }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
+      year: '2-digit',
       month: 'short',
       day: 'numeric'
     });
+  };
+
+  const truncateEmail = (email, maxLength = 25) => {
+    if (email.length <= maxLength) return email;
+    return email.substring(0, maxLength) + '...';
+  };
+
+  const truncateName = (name, maxLength = 20) => {
+    if (!name || name.length <= maxLength) return name || 'Unnamed User';
+    return name.substring(0, maxLength) + '...';
   };
 
   const handleDelete = async () => {
@@ -50,32 +60,48 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
 
   return (
     <tr className="hover:bg-neutral-50 transition-colors">
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+      <td className="px-3 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
         {serialNumber}
       </td>
       
-      <td className="px-6 py-4 whitespace-nowrap">
+      <td className="px-3 xl:px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
-          <div className="flex-shrink-0 h-10 w-10">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <span className="text-sm font-medium text-white">
+          <div className="flex-shrink-0 h-8 w-8 lg:h-10 lg:w-10">
+            <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <span className="text-xs lg:text-sm font-medium text-white">
                 {admin.name?.charAt(0).toUpperCase() || 'U'}
               </span>
             </div>
           </div>
-          <div className="ml-4">
+          <div className="ml-2 lg:ml-4">
             <div className="text-sm font-medium text-gray-900">
-              {admin.name || 'Unnamed User'}
+              <span className="block lg:hidden" title={admin.name}>
+                {truncateName(admin.name, 12)}
+              </span>
+              <span className="hidden lg:block xl:hidden" title={admin.name}>
+                {truncateName(admin.name, 18)}
+              </span>
+              <span className="hidden xl:block">
+                {admin.name || 'Unnamed User'}
+              </span>
             </div>
           </div>
         </div>
       </td>
       
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-        {admin.email}
+      <td className="px-3 xl:px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+        <span className="block lg:hidden" title={admin.email}>
+          {truncateEmail(admin.email, 15)}
+        </span>
+        <span className="hidden lg:block xl:hidden" title={admin.email}>
+          {truncateEmail(admin.email, 20)}
+        </span>
+        <span className="hidden xl:block">
+          {admin.email}
+        </span>
       </td>
       
-      <td className="px-6 py-4 whitespace-nowrap">
+      {/* <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center space-x-2">
           <span className="text-sm text-gray-900 font-mono">
             {displayPassword}
@@ -88,10 +114,10 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
-      </td>
+      </td> */}
       
-      <td className="px-6 py-4 whitespace-nowrap">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+      <td className="px-3 xl:px-6 py-4 whitespace-nowrap">
+        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
           admin.role === 'admin' 
             ? 'bg-primary text-gray-900' 
             : 'bg-secondary text-white'
@@ -110,12 +136,25 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
         </span>
       </td> */}
       
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {formatDate(admin.createdAt)}
       </td>
       
-      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <div className="relative">
+      <td className="px-3 xl:px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
+        <button
+          onClick={() => {
+            setSelectedUser(admin?.email);
+            setShowDeleteModal(true);
+          }}
+          disabled={loading}
+          className="inline-flex items-center px-2 lg:px-3 py-1 text-xs lg:text-sm text-red-600 hover:bg-red-50 disabled:opacity-50 rounded transition-colors cursor-pointer"
+        >
+          <Trash2 className="h-3 w-3 lg:h-4 lg:w-4 mr-1 lg:mr-2" />
+          <span className="hidden lg:inline">Delete</span>
+          <span className="lg:hidden">Del</span>
+        </button>
+        
+        {/* <div className="relative">
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-lg hover:bg-neutral-100"
@@ -155,7 +194,7 @@ export default function AdminTableRow({ admin, serialNumber, onDelete, onRefresh
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </td>
     </tr>
   );

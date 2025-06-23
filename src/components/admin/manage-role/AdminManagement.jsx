@@ -6,7 +6,8 @@ import AddAdminModal from './AddAdminModal';
 import AddModeratorModal from './AddModeratorModal';
 import { toast } from 'react-toastify';
 import Loader from '@/components/ui/Loader/Loader';
-import { fetchAllAdmins } from '@/lib/roleManagement';
+import { deleteAdminUser, deleteAdminUserByEmail, fetchAllAdmins } from '@/lib/roleManagement';
+import DeleteAdminConfirmModal from './DeleteAdminConfirmModal';
 
 export default function AdminManagement() {
   const [reloadAdmins, setReloadAdmins] = useState(false);
@@ -14,6 +15,8 @@ export default function AdminManagement() {
   const [loading, setLoading] = useState(true);
   const [showAddAdminModal, setShowAddAdminModal] = useState(false);
   const [showAddModeratorModal, setShowAddModeratorModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
 
@@ -47,10 +50,38 @@ export default function AdminManagement() {
     // toast.success('Moderator created successfully');
   };
 
-  const handleDeleteUser = (deletedUserId) => {
-    setAdmins(prev => prev.filter(admin => admin.$id !== deletedUserId));
-    toast.success('User deleted successfully');
-  };
+
+const handleDeleteAdmin = async () => {
+  if (selectedUser) {
+    try {
+      // Validate that selectedUser is an email string
+      if (!selectedUser || typeof selectedUser !== 'string') {
+        throw new Error('Invalid user email selected for deletion');
+      }
+      
+      console.log('Deleting user with email:', selectedUser);
+      
+      // Call the new function that accepts email
+      const response = await deleteAdminUserByEmail(selectedUser);
+      
+      // Filter out the deleted admin from the state using email
+      setAdmins(admins.filter(a => a.email !== selectedUser));
+      setShowDeleteModal(false);
+      setSelectedUser(null);
+      
+      if (response.success === true) {
+        toast.success('Admin deleted successfully.');
+      }
+    } catch (error) {
+      console.error('Error deleting admin:', error);
+      toast.error('Failed to delete admin. Please try again.');
+    }
+  } else {
+    toast.error('No user selected for deletion');
+  }
+};
+
+
 
   // Filter admins based on search and role
   const filteredAdmins = admins.filter(admin => {
@@ -169,8 +200,11 @@ export default function AdminManagement() {
       {/* Admin Table */}
       <AdminTable 
         admins={filteredAdmins} 
-        onDeleteUser={handleDeleteUser}
+        // onDeleteUser={handleDeleteUser}
         onRefresh={loadAdmins}
+        //props passed to AdminTableRow for delete functionality
+        setSelectedUser={setSelectedUser}
+        setShowDeleteModal={setShowDeleteModal}
       />
 
       {/* Modals */}
@@ -187,6 +221,15 @@ export default function AdminManagement() {
           setReloadAdmins={setReloadAdmins}
           onAddModerator={handleAddModerator}
           onClose={() => setShowAddModeratorModal(false)}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DeleteAdminConfirmModal
+          setReloadAdmins={setReloadAdmins}
+          onConfirm={handleDeleteAdmin}
+          user={selectedUser}
+          onClose={() => setShowDeleteModal(false)}
         />
       )}
     </div>

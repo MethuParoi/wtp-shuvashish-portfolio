@@ -30,12 +30,12 @@ export default function LoginForm() {
         // Redirect to admin dashboard
         document.cookie = `registered=${admin.email}; path=/; secure; sameSite=strict`;
         document.cookie = `role=${admin.role}; path=/; secure; sameSite=strict`;
-        //delay for 2 second
-        // await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
+      // Wait for cookies to be set before redirecting
+      setTimeout(() => {
         router.push('/admin');
-        setLoading(false);
         toast.success('Login successful!');
+      }, 1000); // Add a slight delay (1second) to ensure cookies are set
         
       }
 

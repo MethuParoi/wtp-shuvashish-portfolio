@@ -8,14 +8,12 @@ export default function RootLayout({
   children,
 }) {
   return (
-      <div>
-        <div className="min-w-screen min-h-screen flex flex-col">
-          <Navbar />
-          <div className="flex-1 min-h-[80dvh]">
-            {children}
-          </div>
-          <Footer/>
-        </div>
+    <div>
+      <div className="bg-dark-navy flex min-h-screen min-w-screen flex-col">
+        <Navbar />
+        <div className="min-h-[80dvh] flex-1">{children}</div>
+        <Footer />
       </div>
+    </div>
   );
 }

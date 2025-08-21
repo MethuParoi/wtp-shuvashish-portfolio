@@ -5,6 +5,10 @@
 
 @theme {
   /* ------Portfolio Color Palette---------- */
+  /* Dark background */
+  --color-dark-navy: #1a1d29;
+  --color-dark-blue: #252a3a;
+
   --color-primary: #020617;
   --color-primary-hover: #0f172a;
 
@@ -17,6 +21,7 @@
   --color-neutral:  #ffffff;
   --color-neutral-hover: #f1f5f9;
 
+  /*---------------hero section ------------------------ */
    /* Gradient colors for this design */
   --color-gradient-cyan: #00e5ff;
   --color-gradient-blue: #2196f3;
@@ -31,9 +36,26 @@
   --color-vibrant-purple: #7c4dff;
   --color-vibrant-pink: #ff1744;
   
-  /* Dark background */
-  --color-dark-navy: #1a1d29;
-  --color-dark-blue: #252a3a;
+  
+
+  /* ---------------- Boost your website traffic------------------ */
+  --color-card-border: #3b82f6;        /* Blue border for cards */
+  --color-card-border-hover: #60a5fa;  /* Lighter blue on hover */
+  
+  /* Text colors for dark theme */
+  --color-text-primary-dark: #ffffff;
+  --color-text-secondary-dark: #9ca3af;
+  --color-text-tertiary-dark: #6b7280;
+  
+  /* Icon colors */
+  --color-icon-cyan: #00e5ff;
+  --color-icon-video: #00e5ff;
+  
+  /* Step number color */
+  --color-step-number: #facc15;        /* Yellow for step numbers */
+  
+  /* Lightning accent */
+  --color-lightning: #facc15;
 }
 /* ------Doctor Portfolio Color Palette---------- */
 

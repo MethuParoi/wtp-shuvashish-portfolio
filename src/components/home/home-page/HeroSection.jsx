@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import heroImage from "../../../../public/hero/hero-women.png"
 
 const DigitalMarketingHero = ({
   mainTitle = "ELEVATE YOUR BUSINESS",
@@ -16,7 +15,7 @@ const DigitalMarketingHero = ({
   className = "",
 }) => {
   const [auditInput, setAuditInput] = useState("");
-  
+
   // Social Media Icons
   const SocialIcon = ({ icon, color = "#00ffff" }) => {
     const iconMap = {
@@ -90,7 +89,7 @@ const DigitalMarketingHero = ({
   return (
     <div
       className={`relative min-h-screen overflow-hidden ${className}`}
-      style={{ backgroundColor: "var(--color-dark-navy)" }}
+      style={{ backgroundColor: "var(--color-dark-blue)" }}
     >
       {/* Floating Background Shapes */}
       <FloatingShapes />

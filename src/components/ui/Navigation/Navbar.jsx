@@ -15,25 +15,25 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <div className="bg-gray-900 text-white px-6 py-3 font-bold text-lg">
+          <div className="text-accent bg-gray-900 px-6 py-3 text-lg font-bold">
             RALPH
             <br />
             EDWARDS.
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden items-center space-x-8 md:flex">
             {navItems.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}
-                className={`text-gray-700 hover:text-secondary font-medium transition-colors ${
+                className={`hover:text-secondary font-medium text-gray-700 transition-colors ${
                   item.name === "Contact"
-                    ? "bg-primary hover:bg-primary-hover text-gray-900 px-4 py-2 rounded"
+                    ? "bg-primary hover:bg-primary-hover rounded px-4 py-2 text-gray-900"
                     : ""
                 }`}
               >
@@ -44,11 +44,11 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 bg-primary hover:bg-primary-hover rounded"
+            className="bg-primary hover:bg-primary-hover rounded p-2 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -65,12 +65,12 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="border-t py-4 md:hidden">
             {navItems.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}
-                className="block py-3 text-gray-700 hover:text-secondary font-medium transition-colors"
+                className="hover:text-secondary block py-3 font-medium text-gray-700 transition-colors"
               >
                 {item.name}
               </Link>

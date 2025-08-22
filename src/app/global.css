@@ -56,8 +56,31 @@
   
   /* Lightning accent */
   --color-lightning: #facc15;
+
+  /*----------------- Client Satisfaction Section ------------------*/
+  --color-section-bg: #1a1d29;         /* Dark navy background */
+  
+  /* Text colors */
+  --color-heading-primary: #ffffff;     /* White main heading */
+  --color-heading-accent: #facc15;      /* Yellow accent text */
+  --color-text-body: #9ca3af;          /* Gray body text */
+  
+  /* Tag/Badge colors */
+  --color-tag-border: #4b5563;         /* Gray border for tags */
+  --color-tag-text: #e5e7eb;           /* Light gray text for tags */
+  --color-tag-hover: #6b7280;          /* Darker gray on hover */
+  
+  /* Button colors */
+  --color-btn-get-started: #00e5ff;    /* Cyan get started button */
+  --color-btn-get-started-hover: #00b8d4;
+  --color-btn-learn-more: #8b5cf6;     /* Purple learn more button */
+  --color-btn-learn-more-hover: #7c3aed;
+  
+  /* Decorative elements */
+  --color-wave-purple: #8b5cf6;        /* Purple wave decoration */
+  --color-wave-glow: rgba(139, 92, 246, 0.3);
 }
-/* ------Doctor Portfolio Color Palette---------- */
+/* ------Portfolio Color Palette---------- */
 
 /* root style */
 html, body {

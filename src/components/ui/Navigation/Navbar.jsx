@@ -8,10 +8,10 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about-me" },
-    { name: "Education", href: "/education" },
-    { name: "Testimonial", href: "/testimonial" },
-    { name: "Article", href: "/article" },
-    { name: "Contact", href: "/contact" },
+    { name: "Service", href: "/service" },
+    // { name: "Testimonial", href: "/testimonial" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Get Started", href: "/contact" },
   ];
 
   return (
@@ -19,10 +19,18 @@ const Navbar = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <div className="text-accent bg-gray-900 px-6 py-3 text-lg font-bold">
-            RALPH
+          <div
+            className="block bg-clip-text px-6 py-3 text-lg font-bold text-transparent"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-vibrant-cyan), var(--color-vibrant-green))",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            SHUVASHISH
             <br />
-            EDWARDS.
+            BARMAN
           </div>
 
           {/* Desktop Navigation */}
@@ -31,9 +39,9 @@ const Navbar = () => {
               <Link
                 key={index}
                 href={item.href}
-                className={`hover:text-secondary font-medium text-gray-700 transition-colors ${
-                  item.name === "Contact"
-                    ? "bg-primary hover:bg-primary-hover rounded px-4 py-2 text-gray-900"
+                className={`font-medium text-gray-200 transition-colors hover:text-gray-400 ${
+                  item.name === "Get Started"
+                    ? "rounded-lg border-2 border-teal-300 bg-transparent px-4 py-2 text-teal-300 hover:bg-teal-300 hover:text-gray-600"
                     : ""
                 }`}
               >
@@ -65,12 +73,12 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="border-t py-4 md:hidden">
+          <div className="bg-dark-navy absolute z-50 ml-[-15px] w-full border-t py-4 md:hidden">
             {navItems.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}
-                className="hover:text-secondary block py-3 font-medium text-gray-700 transition-colors"
+                className="ml-4 block py-3 font-medium text-gray-200 transition-colors hover:text-gray-600"
               >
                 {item.name}
               </Link>

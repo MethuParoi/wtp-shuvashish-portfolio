@@ -88,7 +88,7 @@ const DigitalMarketingHero = ({
 
   return (
     <div
-      className={`relative min-h-screen overflow-hidden ${className}`}
+      className={`relative min-h-screen overflow-hidden rounded-3xl ${className}`}
       style={{ backgroundColor: "var(--color-dark-blue)" }}
     >
       {/* Floating Background Shapes */}
@@ -293,7 +293,7 @@ const DigitalMarketingHero = ({
           <div className="relative flex items-center justify-center">
             {/* Main Circular Background */}
             <div
-              className="relative h-80 w-80 rounded-full md:h-96 md:w-96"
+              className="relative mr-28 h-80 w-42 rounded-[9rem] sm:mr-0 md:h-[30rem] md:w-72"
               style={{
                 background:
                   "linear-gradient(135deg, var(--color-vibrant-cyan), var(--color-gradient-blue))",
@@ -334,7 +334,7 @@ const DigitalMarketingHero = ({
             </div>
 
             {/* Phone Mockup */}
-            <div className="absolute top-1/2 -right-12 -translate-y-1/2 transform">
+            <div className="absolute top-1/2 right-4 -translate-y-1/2 transform">
               <div
                 className="h-64 w-32 rounded-3xl p-2 shadow-2xl"
                 style={{ backgroundColor: "var(--color-vibrant-green)" }}

@@ -8,7 +8,7 @@ export default async function HomePage() {
   
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto lg:pr-18 lg:pl-14">
       <DigitalMarketingHero />
       <WebsiteTrafficBoost
         title="Boost Your Website Traffic!"

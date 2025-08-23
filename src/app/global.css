@@ -79,6 +79,61 @@
   /* Decorative elements */
   --color-wave-purple: #8b5cf6;        /* Purple wave decoration */
   --color-wave-glow: rgba(139, 92, 246, 0.3);
+
+  /* ------------------Digital Solution------------------- */
+  --color-services-bg: #1a1d29;         /* Dark navy background */
+  
+  /* Text colors */
+  --color-services-heading: #ffffff;     /* White main heading */
+  --color-services-subtitle: #9ca3af;   /* Gray subtitle text */
+  --color-services-card-text: #ffffff;  /* White text on cards */
+  
+  /* Service card colors */
+  --color-card-purple: #8b5cf6;         /* Purple service card */
+  --color-card-cyan: #00e5ff;           /* Cyan service card */
+  --color-card-blue: #3b82f6;           /* Blue boost traffic card */
+  --color-card-yellow: #facc15;         /* Yellow service card */
+  --color-card-pink: #ec4899;           /* Pink service card */
+  
+  /* Card hover effects */
+  --color-card-purple-hover: #7c3aed;
+  --color-card-cyan-hover: #00b8d4;
+  --color-card-blue-hover: #2563eb;
+  --color-card-yellow-hover: #eab308;
+  --color-card-pink-hover: #db2777;
+  
+  /* Button colors */
+  --color-btn-dark: #1f2937;            /* Dark button background */
+  --color-btn-dark-hover: #374151;      /* Dark button hover */
+  --color-btn-outline: #4b5563;         /* Outline button border */
+  
+  /* Decorative elements */
+  --color-arrow-accent: #facc15;        /* Yellow decorative arrows */
+
+  /* ------------------web design company------------------- */
+  --color-trust-section-bg: #1a1d29;    /* Dark navy section background */
+  
+  /* Text colors */
+  --color-trust-heading: #ffffff;        /* White main heading */
+  --color-trust-subtitle: #9ca3af;      /* Gray subtitle text */
+  --color-trust-card-text: #ffffff;     /* White text on cards */
+  --color-trust-card-subtitle: #e5e7eb; /* Light gray card text */
+  
+  /* Card colors */
+  --color-card-dark: rgba(55, 65, 81, 0.6);      /* Dark transparent card */
+  --color-card-dark-border: #4b5563;             /* Dark card border */
+  --color-card-blue: #3b82f6;                    /* Blue featured card */
+  --color-card-blue-hover: #2563eb;              /* Blue card hover */
+  --color-card-purple: #8b5cf6;                  /* Purple gradient accent */
+  
+  /* Decorative elements */
+  --color-floating-orb-1: linear-gradient(135deg, #00e5ff, #2196f3);  /* Cyan-Blue orb */
+  --color-floating-orb-2: #facc15;               /* Yellow dot */
+  --color-star-accent: #ec4899;                  /* Pink star */
+  
+  /* Button colors */
+  --color-btn-get-started-cyan: #00e5ff;         /* Cyan get started button */
+  --color-btn-get-started-cyan-hover: #00b8d4;
 }
 /* ------Portfolio Color Palette---------- */
 

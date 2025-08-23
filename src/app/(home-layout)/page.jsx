@@ -1,8 +1,10 @@
 // app/page.jsx (or app/home/page.jsx)
 import BlogSection from '@/components/home/home-page/BlogSection';
 import ClientSatisfactionSection from "@/components/home/home-page/ClientSatisfactionSection";
+import DigitalSolutionsServices from "@/components/home/home-page/DigitalSolutionsServices";
 import DigitalMarketingHero from "@/components/home/home-page/HeroSection";
 import ProjectsSection from '@/components/home/home-page/ProjectsSection';
+import WebDesignCompanyTrust from "@/components/home/home-page/WebDesignCompanyTrust";
 import WebsiteTrafficBoost from "@/components/home/home-page/WebsiteTrafficBoost";
 
 export default async function HomePage() {
@@ -57,6 +59,8 @@ export default async function HomePage() {
         getStartedText="Get Started"
         learnMoreText="Learn More"
       />
+      <DigitalSolutionsServices />
+      <WebDesignCompanyTrust />
       <BlogSection />
       <ProjectsSection />
     </section>

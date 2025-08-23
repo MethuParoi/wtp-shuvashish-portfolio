@@ -134,6 +134,36 @@
   /* Button colors */
   --color-btn-get-started-cyan: #00e5ff;         /* Cyan get started button */
   --color-btn-get-started-cyan-hover: #00b8d4;
+
+    /* ------------------company growth------------------- */
+    /* Section background */
+  --color-growth-section-bg: #0f1419;     /* Very dark navy/black background */
+  
+  /* Text colors */
+  --color-growth-heading: #ffffff;         /* White main heading */
+  --color-growth-subtitle: #9ca3af;       /* Gray subtitle text */
+  --color-growth-stat-number: #ffffff;    /* White stat numbers */
+  --color-growth-stat-label: #e5e7eb;     /* Light gray stat labels */
+  --color-growth-description: #9ca3af;    /* Gray description text */
+  
+  /* Card colors */
+  --color-stat-card-bg: rgba(15, 20, 25, 0.8);     /* Semi-transparent dark cards */
+  --color-stat-card-border: rgba(139, 92, 246, 0.3); /* Purple border with opacity */
+  --color-stat-card-hover: rgba(139, 92, 246, 0.1);  /* Purple hover background */
+  
+  /* Button colors */
+  --color-btn-learn-more: #8b5cf6;         /* Purple learn more button */
+  --color-btn-learn-more-hover: #7c3aed;   /* Purple button hover */
+  --color-btn-watch-video: transparent;    /* Transparent watch video button */
+  --color-btn-watch-video-text: #ffffff;   /* White text for watch video */
+  --color-btn-watch-video-border: #facc15; /* Yellow border for watch video */
+  
+  /* Swirl/Abstract background */
+  --color-swirl-purple: #8b5cf6;
+  --color-swirl-pink: #ec4899;
+  --color-swirl-blue: #3b82f6;
+  --color-swirl-opacity: 0.4;
+
 }
 /* ------Portfolio Color Palette---------- */
 

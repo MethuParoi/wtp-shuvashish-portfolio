@@ -1,6 +1,7 @@
 // app/page.jsx (or app/home/page.jsx)
 import BlogSection from '@/components/home/home-page/BlogSection';
 import ClientSatisfactionSection from "@/components/home/home-page/ClientSatisfactionSection";
+import CompanyGrowthStats from "@/components/home/home-page/CompanyGrowthStats";
 import DigitalSolutionsServices from "@/components/home/home-page/DigitalSolutionsServices";
 import DigitalMarketingHero from "@/components/home/home-page/HeroSection";
 import ProjectsSection from '@/components/home/home-page/ProjectsSection';
@@ -61,6 +62,7 @@ export default async function HomePage() {
       />
       <DigitalSolutionsServices />
       <WebDesignCompanyTrust />
+      <CompanyGrowthStats />
       <BlogSection />
       <ProjectsSection />
     </section>

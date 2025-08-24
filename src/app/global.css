@@ -164,6 +164,157 @@
   --color-swirl-blue: #3b82f6;
   --color-swirl-opacity: 0.4;
 
+  /* ------Things we made---------- */
+  
+  /* Section background */
+  --color-portfolio-section-bg: #1a1d29;    /* Dark navy background */
+  
+  /* Text colors */
+  --color-portfolio-heading: #ffffff;        /* White main heading */
+  --color-portfolio-subtitle: #9ca3af;      /* Gray subtitle text */
+  --color-portfolio-cta-text: #ffffff;      /* White CTA text */
+  
+  /* Project card colors */
+  --color-project-card-overlay: rgba(0, 0, 0, 0.3); /* Light dark overlay on images */
+  --color-project-card-hover: rgba(139, 92, 246, 0.15); /* Purple hover overlay */
+  
+  /* CTA card colors */
+  --color-cta-card-bg: #8b5cf6;             /* Purple CTA card background */
+  --color-cta-card-bg-hover: #7c3aed;       /* Purple CTA card hover */
+  --color-cta-button-bg: transparent;        /* Transparent button background */
+  --color-cta-button-border: #ffffff;        /* White button border */
+  --color-cta-button-text: #ffffff;         /* White button text */
+  
+  /* View all button */
+  --color-view-all-bg: transparent;          /* Transparent background */
+  --color-view-all-border: #4b5563;         /* Gray border */
+  --color-view-all-text: #ffffff;           /* White text */
+  --color-view-all-hover: #374151;          /* Dark gray hover */
+  
+  /* Decorative elements */
+  --color-geometric-lines: #8b5cf6;         /* Purple geometric lines */
+
+  /* ------Professional SEO Agency---------- */
+  /* Section background */
+  --color-seo-section-bg: #1a1d29;          /* Dark navy background */
+  
+  /* Text colors */
+  --color-seo-heading: #ffffff;              /* White main heading */
+  --color-seo-subtitle: #9ca3af;            /* Gray subtitle text */
+  --color-seo-feature-text: #ffffff;        /* White feature text */
+  
+  /* Feature colors */
+  --color-feature-number-bg: transparent;    /* Transparent number background */
+  --color-feature-number-border: #facc15;   /* Yellow number border */
+  --color-feature-number-text: #facc15;     /* Yellow number text */
+  
+  /* Button colors */
+  --color-btn-learn-more: #8b5cf6;          /* Purple learn more button */
+  --color-btn-learn-more-hover: #7c3aed;    /* Purple button hover */
+  --color-btn-get-started: #00e5ff;         /* Cyan get started button */
+  --color-btn-get-started-hover: #00b8d4;   /* Cyan button hover */
+  
+  /* Visual elements */
+  --color-green-circle: #00ff88;            /* Green circle background */
+  --color-purple-wave: #8b5cf6;             /* Purple flowing wave */
+  --color-yellow-accent: #facc15;           /* Yellow accent dot */
+
+  /* ------Client Testimonial---------- */
+  /* Section background */
+  --color-testimonials-section-bg: #1a1d29;   /* Dark navy background */
+  
+  /* Text colors */
+  --color-testimonials-heading: #ffffff;       /* White main heading */
+  --color-testimonials-subtitle: #9ca3af;     /* Gray subtitle text */
+  --color-testimonials-text: #e5e7eb;         /* Light gray testimonial text */
+  --color-testimonials-author: #3b82f6;       /* Blue author name */
+  --color-testimonials-role: #9ca3af;         /* Gray role text */
+  
+  /* Card colors */
+  --color-testimonial-card-bg: rgba(55, 65, 81, 0.6);     /* Semi-transparent card background */
+  --color-testimonial-card-border: #4b5563;               /* Gray card border */
+  --color-testimonial-card-hover: rgba(139, 92, 246, 0.1); /* Purple hover background */
+  --color-testimonial-card-border-hover: #8b5cf6;         /* Purple hover border */
+  
+  /* Star rating color */
+  --color-star-rating: #facc15;                           /* Yellow/gold stars */
+
+  /* ------Blog Section--------- */
+  /* Section background */
+  --color-news-section-bg: #1a1d29;           /* Dark navy background */
+  
+  /* Text colors */
+  --color-news-heading: #ffffff;               /* White main heading */
+  --color-news-subtitle: #9ca3af;             /* Gray subtitle text */
+  --color-news-card-title: #ffffff;           /* White card titles */
+  --color-news-card-date: #00ff88;            /* Green date text */
+  
+  /* Card colors */
+  --color-news-card-overlay: rgba(0, 0, 0, 0.4);     /* Dark overlay on images */
+  --color-news-card-hover-overlay: rgba(139, 92, 246, 0.3); /* Purple hover overlay */
+  
+  /* Button colors */
+  --color-news-read-more-bg: rgba(0, 0, 0, 0.7);     /* Semi-transparent button background */
+  --color-news-read-more-text: #ffffff;               /* White button text */
+  --color-news-read-more-hover: rgba(139, 92, 246, 0.8); /* Purple hover background */
+
+  /* ------ Form Section --------- */
+  /* Section background */
+  --color-contact-section-bg: #1a1d29;        /* Dark navy background */
+  
+  /* Text colors */
+  --color-contact-heading: #00e5ff;           /* Cyan heading color */
+  --color-contact-subtitle: #9ca3af;          /* Gray subtitle text */
+  
+  /* Form colors */
+  --color-form-input-bg: transparent;          /* Transparent input background */
+  --color-form-input-border: #4b5563;         /* Gray input border */
+  --color-form-input-border-focus: #00e5ff;   /* Cyan focus border */
+  --color-form-input-text: #ffffff;           /* White input text */
+  --color-form-input-placeholder: #9ca3af;    /* Gray placeholder text */
+  --color-form-label: #e5e7eb;                /* Light gray labels */
+  
+  /* Button colors */
+  --color-form-submit-bg: #2196f3;            /* Blue submit button */
+  --color-form-submit-bg-hover: #1976d2;      /* Darker blue on hover */
+  --color-form-submit-text: #ffffff;          /* White button text */
+  
+  /* Background pattern */
+  --color-pattern-line-1: rgba(139, 92, 246, 0.3);  /* Purple diagonal lines */
+  --color-pattern-line-2: rgba(236, 72, 153, 0.2);  /* Pink diagonal lines */
+
+  /* ------Footer---------- */
+   /* Footer background */
+  --color-footer-bg: #1a1d29;                 /* Dark navy background */
+  --color-footer-border-top: #374151;         /* Top border color */
+  
+  /* Text colors */
+  --color-footer-brand-primary: #d946ef;      /* Purple for "Optimist" */
+  --color-footer-brand-secondary: #00e5ff;    /* Cyan for "x" */
+  --color-footer-tagline: #9ca3af;            /* Gray tagline */
+  --color-footer-contact-heading: #00e5ff;    /* Cyan contact headings */
+  --color-footer-contact-text: #e5e7eb;       /* Light gray contact text */
+  --color-footer-copyright: #9ca3af;          /* Gray copyright text */
+  
+  /* Newsletter section */
+  --color-newsletter-text: #ffffff;           /* White newsletter text */
+  --color-newsletter-border: #4b5563;         /* Gray input border */
+  --color-newsletter-border-focus: #00e5ff;   /* Cyan focus border */
+  --color-newsletter-input-bg: transparent;   /* Transparent input background */
+  --color-newsletter-input-text: #ffffff;     /* White input text */
+  --color-newsletter-placeholder: #9ca3af;    /* Gray placeholder */
+  
+  /* Get Started button */
+  --color-get-started-bg: #8b5cf6;            /* Purple button background */
+  --color-get-started-bg-hover: #7c3aed;      /* Purple button hover */
+  --color-get-started-text: #ffffff;          /* White button text */
+  
+  /* Social media icons */
+  --color-social-icon: #9ca3af;               /* Gray social icons */
+  --color-social-icon-hover: #00e5ff;         /* Cyan hover for social icons */
+  --color-social-bg-hover: rgba(0, 229, 255, 0.1); /* Cyan background on hover */
+
+
 }
 /* ------Portfolio Color Palette---------- */
 

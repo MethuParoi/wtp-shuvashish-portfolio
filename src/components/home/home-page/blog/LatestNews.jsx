@@ -35,7 +35,7 @@ const LatestNews = ({
 }) => {
   return (
     <section
-      className={`relative overflow-hidden py-16 md:py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden pb-16 ${className}`}
       style={{ backgroundColor: "var(--color-news-section-bg)" }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

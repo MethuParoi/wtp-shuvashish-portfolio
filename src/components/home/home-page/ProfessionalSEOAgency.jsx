@@ -26,9 +26,9 @@ const ProfessionalSEOAgency = ({
   ],
   learnMoreText = "Learn More",
   getStartedText = "Get Started",
-  mainPersonImage = "/seo-main-person.jpg",
-  teamImage1 = "/seo-team-1.jpg",
-  teamImage2 = "/seo-team-2.jpg",
+  mainPersonImage = "/seo-agency/seo-main-person.png",
+  teamImage1 = "/seo-agency/seo-team-1.jpg",
+  teamImage2 = "/seo-agency/seo-team-2.jpg",
   className = "",
 }) => {
   // Arrow Icon for Get Started button
@@ -73,7 +73,7 @@ const ProfessionalSEOAgency = ({
 
   return (
     <section
-      className={`relative overflow-hidden py-16 md:py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden pb-10 ${className}`}
       style={{ backgroundColor: "var(--color-seo-section-bg)" }}
     >
       {/* Purple Wave Background */}
@@ -88,7 +88,7 @@ const ProfessionalSEOAgency = ({
               {/* Green Circle Background with Main Person */}
               <div className="relative">
                 <div
-                  className="relative mx-auto h-80 w-80 rounded-full lg:h-96 lg:w-96"
+                  className="relative mx-auto h-[30rem] w-80 rounded-full lg:h-[40rem] lg:w-96"
                   style={{ backgroundColor: "var(--color-green-circle)" }}
                 >
                   {/* Main Person Image */}

@@ -114,7 +114,7 @@ const ClientTestimonials = ({
 
   return (
     <section
-      className={`relative overflow-hidden py-16 md:py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden py-20 ${className}`}
       style={{ backgroundColor: "var(--color-testimonials-section-bg)" }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

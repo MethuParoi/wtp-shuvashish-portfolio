@@ -7,7 +7,7 @@ const ThingsWeMadePortfolio = ({
   projects = [
     {
       id: 1,
-      image: "/portfolio-creative-woman.jpg",
+      image: "/things-we-made/twm-1.jpg",
       title: "Creative Design",
       category: "Branding",
       type: "large",
@@ -15,7 +15,7 @@ const ThingsWeMadePortfolio = ({
     },
     {
       id: 2,
-      image: "/portfolio-business-call.jpg",
+      image: "/things-we-made/twm-2.jpg",
       title: "Business Communication",
       category: "Marketing",
       type: "medium",
@@ -23,7 +23,7 @@ const ThingsWeMadePortfolio = ({
     },
     {
       id: 3,
-      image: "/portfolio-creative-tools.jpg",
+      image: "/things-we-made/twm-3.jpg",
       title: "Creative Tools",
       category: "Design",
       type: "medium",
@@ -31,7 +31,7 @@ const ThingsWeMadePortfolio = ({
     },
     {
       id: 4,
-      image: "/portfolio-beauty-product.jpg",
+      image: "/things-we-made/twm-4.jpg",
       title: "Beauty Product",
       category: "Photography",
       type: "large",
@@ -156,8 +156,8 @@ const ThingsWeMadePortfolio = ({
             <div className="group relative col-span-5 row-span-1 cursor-pointer overflow-hidden rounded-3xl">
               <div className="relative h-full w-full">
                 <img
-                  src={projects.image}
-                  alt={projects.title}
+                  src={projects[0].image}
+                  alt={projects[0].title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -172,10 +172,10 @@ const ThingsWeMadePortfolio = ({
 
                 <div className="absolute bottom-8 left-8">
                   <span className="mb-3 inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-medium tracking-wider text-white uppercase backdrop-blur-sm">
-                    {projects.category}
+                    {projects[0].category}
                   </span>
                   <h3 className="text-2xl font-bold text-white">
-                    {projects.title}
+                    {projects[0].title}
                   </h3>
                 </div>
               </div>
@@ -185,8 +185,8 @@ const ThingsWeMadePortfolio = ({
             <div className="group relative col-span-4 row-span-1 cursor-pointer overflow-hidden rounded-3xl">
               <div className="relative h-full w-full">
                 <img
-                  src={projects.image}
-                  alt={projects.title}
+                  src={projects[1].image}
+                  alt={projects[1].title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -201,10 +201,10 @@ const ThingsWeMadePortfolio = ({
 
                 <div className="absolute bottom-8 left-8">
                   <span className="mb-3 inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-medium tracking-wider text-white uppercase backdrop-blur-sm">
-                    {projects.category}
+                    {projects[1].category}
                   </span>
                   <h3 className="text-xl font-bold text-white">
-                    {projects.title}
+                    {projects[1].title}
                   </h3>
                 </div>
               </div>
@@ -214,8 +214,8 @@ const ThingsWeMadePortfolio = ({
             <div className="group relative col-span-3 row-span-1 cursor-pointer overflow-hidden rounded-3xl">
               <div className="relative h-full w-full">
                 <img
-                  src={projects.image}
-                  alt={projects.title}
+                  src={projects[2].image}
+                  alt={projects[2].title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -230,10 +230,10 @@ const ThingsWeMadePortfolio = ({
 
                 <div className="absolute bottom-8 left-8">
                   <span className="mb-3 inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-medium tracking-wider text-white uppercase backdrop-blur-sm">
-                    {projects.category}
+                    {projects[2].category}
                   </span>
                   <h3 className="text-lg font-bold text-white">
-                    {projects.title}
+                    {projects[2].title}
                   </h3>
                 </div>
               </div>
@@ -243,8 +243,8 @@ const ThingsWeMadePortfolio = ({
             <div className="group relative col-span-5 row-span-1 cursor-pointer overflow-hidden rounded-3xl">
               <div className="relative h-full w-full">
                 <img
-                  src={projects.image}
-                  alt={projects.title}
+                  src={projects[3].image}
+                  alt={projects[3].title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
@@ -259,10 +259,10 @@ const ThingsWeMadePortfolio = ({
 
                 <div className="absolute bottom-8 left-8">
                   <span className="mb-3 inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-medium tracking-wider text-white uppercase backdrop-blur-sm">
-                    {projects.category}
+                    {projects[3].category}
                   </span>
                   <h3 className="text-2xl font-bold text-white">
-                    {projects.title}
+                    {projects[3].title}
                   </h3>
                 </div>
               </div>

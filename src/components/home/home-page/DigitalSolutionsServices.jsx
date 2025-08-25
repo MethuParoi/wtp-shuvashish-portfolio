@@ -1,5 +1,7 @@
 "use client";
+import Image from "next/image";
 import React from "react";
+import img from "../../../../public/landing-page/digital-solution.png";
 
 const DigitalSolutionsServices = ({
   title = "We Provide Amazing Digital Solutions",
@@ -216,7 +218,7 @@ const DigitalSolutionsServices = ({
 
   return (
     <section
-      className={`relative py-16 md:py-24 lg:py-32 ${className}`}
+      className={`relative py-16 md:pt-24 lg:pt-32 ${className}`}
       style={{ backgroundColor: "var(--color-services-bg)" }}
     >
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -326,28 +328,12 @@ const DigitalSolutionsServices = ({
 
                   {/* Analytics Image for Boost Traffic card */}
                   {service.hasImage && (
-                    <div className="absolute right-6 bottom-6 h-24 w-32 lg:right-8 lg:bottom-8 lg:h-32 lg:w-40">
-                      <div className="relative h-full w-full">
-                        {/* Chart/Analytics Illustration */}
-                        <div className="absolute inset-0 rounded-lg bg-white/10 p-3 backdrop-blur-sm">
-                          <div className="relative h-full w-full overflow-hidden rounded-md bg-white p-2">
-                            {/* Chart bars */}
-                            <div className="absolute right-2 bottom-2 left-2 flex items-end space-x-1">
-                              <div className="h-4 w-2 rounded-t bg-blue-500"></div>
-                              <div className="h-6 w-2 rounded-t bg-green-500"></div>
-                              <div className="h-8 w-2 rounded-t bg-yellow-500"></div>
-                              <div className="h-5 w-2 rounded-t bg-purple-500"></div>
-                              <div className="h-7 w-2 rounded-t bg-pink-500"></div>
-                            </div>
-                            {/* Chart line */}
-                            <div className="absolute top-2 right-2 left-2 h-1 rounded-full bg-gradient-to-r from-green-400 to-blue-500 opacity-80"></div>
-                            {/* Target/Goal icon */}
-                            <div className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500">
-                              <div className="h-2 w-2 rounded-full bg-white"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="right-6 bottom-20 hidden h-24 w-32 lg:absolute lg:right-[-20px] lg:bottom-[20rem] lg:block lg:h-[15rem] lg:w-[29rem]">
+                      <Image
+                        src={img}
+                        alt="Analytics Chart"
+                        className="h-full w-full object-contain"
+                      />
                     </div>
                   )}
                 </div>

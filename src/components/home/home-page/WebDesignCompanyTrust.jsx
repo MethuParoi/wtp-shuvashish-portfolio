@@ -27,7 +27,7 @@ const WebDesignCompanyTrust = ({
       type: "dark",
     },
   ],
-  teamImage = "/team-meeting.jpg",
+  teamImage = "/landing-page/developer-company.jpg",
   getStartedText = "Get Started",
   className = "",
 }) => {
@@ -93,13 +93,13 @@ const WebDesignCompanyTrust = ({
 
   return (
     <section
-      className={`relative overflow-hidden py-16 md:py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden py-16 md:py-16 lg:py-16 ${className}`}
       style={{ backgroundColor: "var(--color-trust-section-bg)" }}
     >
       {/* Floating Decorative Elements */}
       <FloatingElements />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Content */}
           <div className="order-2 space-y-8 lg:order-1">

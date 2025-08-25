@@ -27,7 +27,7 @@ const CompanyGrowthStats = ({
       label: "Brands Joined",
       description:
         "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit. Diam lectus volutpat eu id purus odio.",
-      size: "large",
+      size: "medium",
     },
     {
       id: 4,
@@ -239,7 +239,7 @@ const CompanyGrowthStats = ({
 
                   {/* Description */}
                   <p
-                    className="text-sm leading-relaxed opacity-80 md:text-base"
+                    className="line-clamp-6 text-sm leading-relaxed opacity-80 md:text-base"
                     style={{ color: "var(--color-growth-description)" }}
                   >
                     {stat.description}
@@ -270,7 +270,7 @@ const CompanyGrowthStats = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
+        <div className="flex cursor-pointer flex-col items-center justify-center gap-6 sm:flex-row">
           {/* Learn More Button */}
           <button
             className="rounded-full px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl md:px-10 md:py-5"
@@ -294,7 +294,7 @@ const CompanyGrowthStats = ({
           </button>
 
           {/* Watch Video Button */}
-          <button
+          {/* <button
             className="group inline-flex items-center space-x-4 rounded-full border-2 px-6 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 md:px-8 md:py-5"
             style={{
               backgroundColor: "var(--color-btn-watch-video)",
@@ -316,7 +316,7 @@ const CompanyGrowthStats = ({
               <PlayIcon />
             </div>
             <span>{watchVideoText}</span>
-          </button>
+          </button> */}
         </div>
       </div>
 

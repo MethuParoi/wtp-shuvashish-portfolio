@@ -1,44 +1,53 @@
-// components/LatestNews.js
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import NewsCard from "./NewsCard";
+import { useRouter } from "next/navigation";
+import { fetchBlogs } from "../../../../lib/fetchBlog";
+import { Button } from "@/components/ui/Navigation/Button";
+import Loader from "@/components/ui/Loader/Loader";
 
 const LatestNews = ({
-  title = "Latest News",
+  title = "Latest Blogs",
   subtitle = "Lorem ipsum dolor sit amet consectetur. In nulla nunc arcu velit consectetur massa mauris molestiae hac.",
-  newsItems = [
-    {
-      id: 1,
-      date: "April 17, 2024",
-      title: "Simple Ways To Optimize Your Website For SEO",
-      image: "/news-couple-laptop.jpg", // Couple working on laptop
-      readMoreText: "Read More",
-      link: "/news/seo-optimization-tips",
-    },
-    {
-      id: 2,
-      date: "April 17, 2024",
-      title: "Simple Ways To Optimize Your Website For SEO",
-      image: "/news-analytics-dashboard.jpg", // Analytics dashboard with charts
-      readMoreText: "Read More",
-      link: "/news/website-analytics-guide",
-    },
-    {
-      id: 3,
-      date: "April 17, 2024",
-      title: "Simple Ways To Optimize Your Website For SEO",
-      image: "/news-team-video-call.jpg", // Team video conference call
-      readMoreText: "Read More",
-      link: "/news/remote-team-collaboration",
-    },
-  ],
+
   className = "",
 }) => {
+  const router = useRouter();
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadBlogs = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchBlogs(4); // Make sure this function is available client-side or fetch from an API route
+        setBlogs(data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.error("Error loading blogs:", err);
+        setError("Unable to load blog posts at the moment.");
+      }
+    };
+
+    loadBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="container mx-auto max-w-7xl px-4 py-16">
+        <Loader />
+      </section>
+    );
+  }
+
   return (
     <section
       className={`relative overflow-hidden pb-16 ${className}`}
       style={{ backgroundColor: "var(--color-news-section-bg)" }}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center lg:mb-20">
           <h2
@@ -57,7 +66,7 @@ const LatestNews = ({
 
         {/* News Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {newsItems.map((newsItem, index) => (
+          {blogs?.map((newsItem, index) => (
             <NewsCard
               key={newsItem.id}
               newsItem={newsItem}
@@ -66,6 +75,23 @@ const LatestNews = ({
           ))}
         </div>
       </div>
+
+      {/* Error Message */}
+      {error && <p className="mt-6 text-center text-red-500">{error}</p>}
+
+      {/* View All Button */}
+      {blogs.length > 0 && !error && (
+        <div className="flex justify-center">
+          <Button
+            onClick={() => router.push("/all-blogs")}
+            className="self-center"
+            variant="default"
+            size="default"
+          >
+            View All Blogs
+          </Button>
+        </div>
+      )}
     </section>
   );
 };

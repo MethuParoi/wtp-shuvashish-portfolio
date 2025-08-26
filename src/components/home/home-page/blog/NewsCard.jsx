@@ -1,18 +1,26 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const NewsCard = ({ newsItem, className = "" }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   const {
     id,
-    date = "April 17, 2024",
+    slug,
+    publishedAt = "April 17, 2024",
     title = "Simple Ways To Optimize Your Website For SEO",
-    image = "/news-placeholder.jpg",
+    featuredImage = "/news-placeholder.jpg",
     readMoreText = "Read More",
     link = "#",
   } = newsItem;
 
+  // Format publishedAt if it's an ISO string
+  let formattedDate = publishedAt;
+  if (/^\d{4}-\d{2}-\d{2}T/.test(publishedAt)) {
+    formattedDate = publishedAt.slice(0, 10);
+  }
   // Arrow Icon for Read More button
   const ArrowIcon = () => (
     <svg
@@ -39,9 +47,9 @@ const NewsCard = ({ newsItem, className = "" }) => {
       {/* Background Image */}
       <div className="relative h-80 w-full lg:h-96">
         <img
-          src={image}
+          src={featuredImage}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-110"
         />
 
         {/* Default Overlay */}
@@ -65,7 +73,7 @@ const NewsCard = ({ newsItem, className = "" }) => {
 
       {/* Content Overlay */}
       <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-        {/* Date */}
+        {/* publishedAt */}
         <div className="mb-4">
           <span
             className={`inline-block rounded-full px-3 py-1 text-sm font-medium transition-all duration-300 ${isHovered ? "scale-110" : ""} `}
@@ -74,7 +82,7 @@ const NewsCard = ({ newsItem, className = "" }) => {
               color: "#000000",
             }}
           >
-            {date}
+            {formattedDate}
           </span>
         </div>
 
@@ -88,16 +96,16 @@ const NewsCard = ({ newsItem, className = "" }) => {
 
         {/* Read More Button */}
         <button
-          className={`group inline-flex items-center self-start rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 hover:scale-105 ${isHovered ? "translate-y-[-4px] transform" : ""} `}
+          className={`group inline-flex cursor-pointer items-center self-start rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 hover:scale-105 ${isHovered ? "translate-y-[-4px] transform" : ""} `}
           style={{
             backgroundColor: isHovered
               ? "var(--color-news-read-more-hover)"
-              : "var(--color-news-read-more-bg)",
+              : "var(--color-news-read-more-hover)",
             color: "var(--color-news-read-more-text)",
           }}
-          onClick={() => window.open(link, "_blank")}
+          onClick={() => router.push(`/blog/${slug}`)}
         >
-          <span>{readMoreText}</span>
+          <span className="">{readMoreText}</span>
           <ArrowIcon />
         </button>
       </div>

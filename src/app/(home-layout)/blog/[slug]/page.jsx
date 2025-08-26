@@ -29,43 +29,46 @@ export default function BlogDetailPage({ params }) {
   
     if (!loading && !blog) {
       return (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Blog Found</h2>
-            <p className="text-gray-600">It seems there are no blog available at the moment.</p>
+            <h2 className="mb-4 text-3xl font-bold text-gray-50">
+              No Blog Found
+            </h2>
+            <p className="text-gray-100">
+              It seems there are no blog available at the moment.
+            </p>
           </div>
         </section>
       );
     }
     if (loading) {
       return (
-        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
-          <Loader/>
+        <section className="container mx-auto max-w-7xl px-4 py-16">
+          <Loader />
         </section>
       );
     }
 
-
-  return (
-    <article className="container mx-auto px-4 py-12 max-w-5xl">
-      <img
-        src={blog.featuredImage || '/placeholder.jpg'}
-        alt={blog.title}
-        className="w-full h-72 object-cover rounded-lg mb-6"
-      />
-      <h1 className="text-4xl font-bold mb-2">{blog.title}</h1>
-      <div className="flex items-center mb-4 text-gray-500 text-sm">
-        <span>By {blog.author}</span>
-        {blog.publishedAt && (
-          <span className="ml-4">
-            {new Date(blog.publishedAt).toLocaleDateString()}
-          </span>
-        )}
-      </div>
-      <div
-        className="prose max-w-none mx-4 lg:mx-0"
-        dangerouslySetInnerHTML={{ __html: blog.content }}
-      />
-    </article>
-  );
+    return (
+      <article className="container mx-auto max-w-5xl px-4 pt-2 pb-12">
+        <img
+          src={blog.featuredImage || "/placeholder.jpg"}
+          alt={blog.title}
+          className="mb-6 h-96 w-full rounded-lg object-fill lg:h-[30rem]"
+        />
+        <h1 className="mb-2 text-4xl font-bold text-gray-50">{blog.title}</h1>
+        <div className="mb-4 flex items-center text-sm text-gray-300">
+          <span>By {blog.author}</span>
+          {blog.publishedAt && (
+            <span className="ml-4">
+              {new Date(blog.publishedAt).toLocaleDateString()}
+            </span>
+          )}
+        </div>
+        <div
+          className="prose mx-4 max-w-none text-gray-50 lg:mx-0"
+          dangerouslySetInnerHTML={{ __html: blog.content }}
+        />
+      </article>
+    );
 }

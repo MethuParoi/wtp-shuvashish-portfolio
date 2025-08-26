@@ -37,7 +37,7 @@ export default function ProjectsSection() {
     }
 
     return (
-      <section className="container mx-auto max-w-7xl px-4">
+      <section className="container mx-auto max-w-7xl px-4 pb-14">
         <div className="">
           {/* Section Header */}
           <div className="mb-12 text-center">

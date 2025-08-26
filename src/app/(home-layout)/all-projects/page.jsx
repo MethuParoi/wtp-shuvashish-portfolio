@@ -28,39 +28,42 @@ export default function ProjectsSection() {
   
     if (!loading && projects.length === 0) {
       return (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">No Projects Found</h2>
-            <p className="text-gray-600">It seems there are no projects available at the moment.</p>
+            <h2 className="mb-4 text-3xl font-bold text-gray-100">
+              No Projects Found
+            </h2>
+            <p className="text-gray-200">
+              It seems there are no projects available at the moment.
+            </p>
           </div>
         </section>
       );
     }
     if (loading) {
       return (
-        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
-          <Loader/>
+        <section className="container mx-auto max-w-7xl px-4 py-16">
+          <Loader />
         </section>
       );
     }
 
     return (
-      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
+      <section className="container mx-auto max-w-7xl px-4 py-16">
         <div className="">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-50 md:text-4xl">
               All Projects
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Explore my latest work and creative projects. Each project represents a unique challenge and solution.
+            <p className="mx-auto max-w-2xl text-lg text-gray-200">
+              Explore my latest work and creative projects. Each project
+              represents a unique challenge and solution.
             </p>
           </div>
 
           {/* Projects Grid */}
           <ProjectGrid projects={projects} />
-
-          
         </div>
       </section>
     );

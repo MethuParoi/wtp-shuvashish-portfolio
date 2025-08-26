@@ -30,23 +30,29 @@ export default function ProjectsSection() {
 
     if (loading) {
       return (
-        <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
-          <Loader/>
+        <section className="container mx-auto max-w-7xl px-4 py-16">
+          <Loader />
         </section>
       );
     }
-    
 
     return (
-      <section className="py-16 bg-gray-50 container mx-auto px-4 max-w-7xl">
+      <section className="container mx-auto max-w-7xl px-4">
         <div className="">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <div className="mb-12 text-center">
+            <h2
+              className="mb-6 text-3xl leading-tight font-bold md:text-4xl lg:text-5xl xl:text-6xl"
+              style={{ color: "var(--color-news-heading)" }}
+            >
               Featured Projects
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Explore my latest work and creative projects. Each project represents a unique challenge and solution.
+            <p
+              className="mx-auto max-w-3xl text-lg leading-relaxed md:text-xl"
+              style={{ color: "var(--color-news-subtitle)" }}
+            >
+              Explore my latest work and creative projects. Each project
+              represents a unique challenge and solution.
             </p>
           </div>
 
@@ -56,15 +62,15 @@ export default function ProjectsSection() {
           {/* View All Projects Button */}
           {projects.length > 0 && (
             <div className="flex justify-center">
-            <Button
-              onClick={() => router.push("/all-projects")}
-              className="self-center mt-10"
-              variant="default"
-              size="default"
-            >
-              View All Projects
-            </Button>
-          </div>
+              <Button
+                onClick={() => router.push("/all-projects")}
+                className="mt-10 self-center"
+                variant="default"
+                size="default"
+              >
+                View All Projects
+              </Button>
+            </div>
           )}
         </div>
       </section>

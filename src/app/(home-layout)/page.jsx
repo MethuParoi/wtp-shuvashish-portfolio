@@ -18,6 +18,8 @@ export default async function HomePage() {
     <section className="container mx-auto lg:pr-18 lg:pl-14">
       <DigitalMarketingHero />
       <WebsiteTrafficBoost />
+      <ProjectsSection />
+      <LatestNews />
       <ClientSatisfactionSection />
       <DigitalSolutionsServices />
       <WebDesignCompanyTrust />
@@ -25,10 +27,9 @@ export default async function HomePage() {
       <ThingsWeMadePortfolio />
       <ProfessionalSEOAgency />
       <ClientTestimonials />
-      <LatestNews />
+
       <ContactForm />
       {/* <BlogSection /> */}
-      <ProjectsSection />
     </section>
   );
 }

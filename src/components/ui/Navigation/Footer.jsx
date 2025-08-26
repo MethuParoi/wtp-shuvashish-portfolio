@@ -142,14 +142,14 @@ const Footer = ({
 
   return (
     <footer
-      className={`relative ${className}`}
-      style={{ backgroundColor: "var(--color-footer-bg)" }}
+      className={`relative ${className} bg-dark-blue`}
+      // style={{ backgroundColor: "var(--color-footer-bg)" }}
     >
       {/* Top Border */}
-      <div
-        className="h-px w-full"
-        style={{ backgroundColor: "var(--color-footer-border-top)" }}
-      ></div>
+      {/* <div
+        className="h-px w-full bg-gray-600"
+        // style={{ backgroundColor: "var(--color-dark-blue)/10" }}
+      ></div> */}
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         {/* Main Footer Content */}

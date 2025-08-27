@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const ContactForm = ({
   title = "LET'S TALK",
@@ -7,7 +8,7 @@ const ContactForm = ({
   namePlaceholder = "Your Name",
   emailPlaceholder = "Email",
   phonePlaceholder = "Phone Number",
-  messagePlaceholder = "Write here message",
+  messagePlaceholder = "Write your message here",
   submitButtonText = "Send Message",
   onSubmit = null, // Function to handle form submission
   className = "",
@@ -66,44 +67,92 @@ const ContactForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!validateForm()) {
       return;
     }
-
     setIsSubmitting(true);
 
+    const data = {
+      access_key: process.env.NEXT_PUBLIC_WEB3_FORMS_ACCESS_KEY,
+      subject: "Contact Form Submission || Portfolio",
+      form_Name: "Contact Form || Portfolio",
+      name: formData.name,
+      email: formData.email,
+      phone: `${formData.phone}`,
+      message: formData.message,
+    };
+
     try {
-      if (onSubmit) {
-        // Call the provided submit function
-        await onSubmit(formData);
-      } else {
-        // Default behavior - log the data
-        console.log("Form Data:", formData);
+      const loadingToast = toast.loading("Sending your message...");
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.dismiss(loadingToast);
 
-        alert("Message sent successfully!");
-
-        // Reset form
+      if (response.ok) {
+        toast.success("Message sent successfully!");
         setFormData({
           name: "",
           email: "",
           phone: "",
           message: "",
         });
+      } else {
+        toast.error("Failed to send message. Please try again.");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Error sending message. Please try again.");
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // Handle form submission
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+
+  //   setIsSubmitting(true);
+
+  //   try {
+  //     if (onSubmit) {
+  //       // Call the provided submit function
+  //       await onSubmit(formData);
+  //     } else {
+  //       // Default behavior - log the data
+  //       console.log("Form Data:", formData);
+
+  //       // Simulate API call
+  //       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  //       alert("Message sent successfully!");
+
+  //       // Reset form
+  //       setFormData({
+  //         name: "",
+  //         email: "",
+  //         phone: "",
+  //         message: "",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //     alert("Error sending message. Please try again.");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   // Diagonal Lines Background Pattern
   const DiagonalLinesBackground = () => (
@@ -433,7 +482,7 @@ const ContactForm = ({
               value={formData.message}
               onChange={handleInputChange}
               placeholder={messagePlaceholder}
-              rows={6}
+              rows={2}
               className={`placeholder-opacity-70 w-full resize-none border-0 border-b-2 bg-transparent px-0 py-4 text-lg transition-all duration-300 focus:outline-none ${
                 errors.message
                   ? "border-red-500"
@@ -466,7 +515,7 @@ const ContactForm = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full rounded-full px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? "cursor-wait" : "hover:shadow-xl"} `}
+              className={`w-full cursor-pointer rounded-full px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 ${isSubmitting ? "cursor-wait" : "hover:shadow-xl"} `}
               style={{
                 backgroundColor: "var(--color-form-submit-bg)",
                 color: "var(--color-form-submit-text)",
@@ -490,7 +539,7 @@ const ContactForm = ({
         </form>
 
         {/* Form Data Display (for development - remove in production) */}
-        {process.env.NODE_ENV === "development" && (
+        {/* {process.env.NODE_ENV === "development" && (
           <div className="mt-8 rounded-lg bg-gray-800 p-4">
             <h4 className="mb-2 font-semibold text-white">
               Form Data (Development Only):
@@ -499,7 +548,7 @@ const ContactForm = ({
               {JSON.stringify(formData, null, 2)}
             </pre>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

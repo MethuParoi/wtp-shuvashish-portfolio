@@ -1,11 +1,12 @@
 "use client";
 import React, { use, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   //scroll to section
   const scrollToSection = (sectionId) => {
@@ -33,13 +34,14 @@ const Navbar = () => {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <div
-            className="block bg-clip-text px-6 py-3 text-lg font-bold text-transparent"
+            className="block cursor-pointer bg-clip-text px-6 py-3 text-lg font-bold text-transparent"
             style={{
               background:
                 "linear-gradient(135deg, var(--color-vibrant-cyan), var(--color-vibrant-green))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
+            onClick={() => router.push("/")}
           >
             SHUVASHISH
             <br />

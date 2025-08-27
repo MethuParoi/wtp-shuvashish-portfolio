@@ -1,34 +1,34 @@
 "use client";
 import React from "react";
 
-const WebsiteTrafficBoost = ({
-  title = "Boost Your Website Traffic!",
-  description = "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit.",
+const Services = ({
+  title = "My Services",
+  description = "I offer a comprehensive suite of digital marketing and web development services designed to elevate your brand's online presence and drive business growth.",
   steps = [
     {
       number: "01",
-      title: "Market Research",
+      title: "Digital Marketing Strategy ",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit.",
+        "Boost your online visibility with tailored SEO strategies, social media marketing, PPC campaigns, and email marketing—designed to increase traffic, engagement, and ROI.",
       hasLightning: true,
     },
     {
       number: "02",
-      title: "SEO Optimization",
+      title: "Business Analysis & Insights",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit.",
+        "Get data-driven solutions with market research, competitor analysis, SQL-based reporting, and business process improvement for smarter decision-making.",
     },
     {
       number: "03",
-      title: "Ad Support",
+      title: "Consultancy & Advisory",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit.",
+        "I provide branding consultancy, digital transformation advisory, and growth strategy consulting for both startups and established businesses.",
     },
     {
       number: "04",
-      title: "Brand Strategy",
+      title: "Website & Branding Solutions",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Eget etiam eu mauris gravida. Egestas ullamcorper dictum auctor hendrerit viverra. Tempus etiam laoreet pretium aliquam blandit.",
+        "My Web Development team builds custom websites, e-commerce platforms that are UI/UX optimized, mobile-responsive, SEO-ready and performance-driven.",
     },
   ],
   className = "",
@@ -109,7 +109,7 @@ const WebsiteTrafficBoost = ({
         </div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
             <div key={index} className="group relative">
               {/* Lightning Bolt (only for first card) */}
@@ -185,7 +185,7 @@ const WebsiteTrafficBoost = ({
                   </button>
 
                   {/* Video Button */}
-                  <button
+                  {/* <button
                     className="group flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all duration-300 hover:scale-110"
                     style={{
                       borderColor: "var(--color-icon-video)",
@@ -202,7 +202,7 @@ const WebsiteTrafficBoost = ({
                     }}
                   >
                     <VideoIcon />
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Hover Glow Effect */}
@@ -216,4 +216,4 @@ const WebsiteTrafficBoost = ({
   );
 };
 
-export default WebsiteTrafficBoost;
+export default Services;

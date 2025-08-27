@@ -11,13 +11,13 @@ import ProjectsSection from "@/components/home/home-page/ProjectsSection";
 import ClientTestimonials from "@/components/home/home-page/testimonial/ClientTestimonials";
 import ThingsWeMadePortfolio from "@/components/home/home-page/ThingsWeMadePortfolio";
 import WebDesignCompanyTrust from "@/components/home/home-page/WebDesignCompanyTrust";
-import WebsiteTrafficBoost from "@/components/home/home-page/WebsiteTrafficBoost";
+import Services from "@/components/home/home-page/Services";
 
 export default async function HomePage() {
   return (
     <section className="container mx-auto lg:pr-18 lg:pl-14">
       <DigitalMarketingHero />
-      <WebsiteTrafficBoost />
+      <Services />
       <ProjectsSection />
       <LatestNews />
       <ClientSatisfactionSection />

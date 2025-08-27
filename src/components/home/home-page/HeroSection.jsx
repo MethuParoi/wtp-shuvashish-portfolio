@@ -3,18 +3,22 @@ import React, { useState } from "react";
 
 const DigitalMarketingHero = ({
   mainTitle = "ELEVATE YOUR BUSINESS",
-  subtitle = "with Our Cutting-Edge Digital Marketing",
-  auditPlaceholder = "Audit your website",
-  primaryButtonText = "Audit",
-  getStartedText = "Get Started",
-  watchVideoText = "Watch Video",
-  phoneNumber = "123-45678-90",
-  email = "info@name.com",
+  subtitle = "Helping startups and businesses grow with data-driven marketing, actionable business insights, and custom website solutions.",
+  primaryButtonText = "Book a Free Consultation",
+  secondaryButtonText = "Let’s Work Together",
+  phoneNumber = "+91 7980376007",
+  email = "shuvashishbs.work@gmail.com",
   heroImage = "/hero/hero-women.png", // Woman with hat and phone
   phoneImage = "/hero/phone.png", // Phone showing app/website
   className = "",
 }) => {
-  const [auditInput, setAuditInput] = useState("");
+  //scroll to section
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Social Media Icons
   const SocialIcon = ({ icon, color = "#00ffff" }) => {
@@ -143,29 +147,32 @@ const DigitalMarketingHero = ({
 
             {/* Audit Input Section */}
             <div className="space-y-6">
-              <div className="flex max-w-lg flex-col gap-4 sm:flex-row">
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    placeholder={auditPlaceholder}
-                    value={auditInput}
-                    onChange={(e) => setAuditInput(e.target.value)}
-                    className="w-full rounded-full border border-gray-700 bg-gray-800 px-6 py-4 text-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none"
-                  />
-                </div>
+              <div className="flex max-w-xl flex-col gap-4 md:flex-row">
                 <button
-                  className="transform rounded-full px-8 py-4 text-lg font-semibold text-white transition-all hover:scale-105"
+                  className="transform cursor-pointer rounded-full px-8 py-4 text-lg font-semibold text-white transition-all hover:scale-105"
                   style={{
                     background:
                       "linear-gradient(135deg, var(--color-vibrant-purple), var(--color-vibrant-pink))",
                   }}
+                  onClick={() => scrollToSection("contact")}
                 >
                   {primaryButtonText}
+                </button>
+
+                <button
+                  className="transform cursor-pointer rounded-full px-8 py-4 text-lg font-semibold text-white transition-all hover:scale-105"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--color-vibrant-purple), var(--color-vibrant-pink))",
+                  }}
+                  onClick={() => scrollToSection("contact")}
+                >
+                  {secondaryButtonText}
                 </button>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col items-start gap-6 sm:flex-row">
+              {/* <div className="flex flex-col items-start gap-6 sm:flex-row">
                 <button
                   className="flex items-center space-x-3 text-lg font-semibold transition-all hover:scale-105"
                   style={{ color: "var(--color-vibrant-cyan)" }}
@@ -209,7 +216,7 @@ const DigitalMarketingHero = ({
                   </div>
                   <span>{watchVideoText}</span>
                 </button>
-              </div>
+              </div> */}
             </div>
 
             {/* Contact Information */}
@@ -272,19 +279,30 @@ const DigitalMarketingHero = ({
             {/* Social Media Links */}
             <div className="flex space-x-4 pt-4">
               {[
-                { icon: "facebook", color: "var(--color-vibrant-cyan)" },
-                { icon: "instagram", color: "var(--color-vibrant-cyan)" },
-                { icon: "twitter", color: "var(--color-vibrant-cyan)" },
-                { icon: "linkedin", color: "var(--color-vibrant-cyan)" },
+                {
+                  icon: "facebook",
+                  color: "var(--color-vibrant-cyan)",
+                  link: "https://www.facebook.com/Shuvashish.Barman/",
+                },
+                {
+                  icon: "twitter",
+                  color: "var(--color-vibrant-cyan)",
+                  link: "https://x.com/shuvashishbs",
+                },
+                {
+                  icon: "linkedin",
+                  color: "var(--color-vibrant-cyan)",
+                  link: "https://www.linkedin.com/in/shuvashish-barman/",
+                },
               ].map((social, index) => (
-                <a
+                <button
                   key={index}
-                  href="#"
-                  className="flex h-12 w-12 transform items-center justify-center rounded-full transition-all hover:scale-110"
+                  onClick={() => window.open(social.link, "_blank")}
+                  className="flex h-12 w-12 transform cursor-pointer items-center justify-center rounded-full transition-all hover:scale-110"
                   style={{ backgroundColor: social.color }}
                 >
                   <SocialIcon icon={social.icon} />
-                </a>
+                </button>
               ))}
             </div>
           </div>

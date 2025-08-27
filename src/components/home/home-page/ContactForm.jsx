@@ -342,6 +342,7 @@ const ContactForm = ({
 
   return (
     <section
+      id="contact"
       className={`relative overflow-hidden py-16 md:py-24 lg:py-32 ${className}`}
       style={{ backgroundColor: "var(--color-contact-section-bg)" }}
     >

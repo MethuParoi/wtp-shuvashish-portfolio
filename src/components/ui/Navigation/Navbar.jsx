@@ -1,21 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  //scroll to section
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about-me" },
-    { name: "Service", href: "/service" },
-    // { name: "Testimonial", href: "/testimonial" },
-    { name: "Blogs", href: "/blogs" },
-    { name: "Get Started", href: "/contact" },
+    { name: "Services", href: "/services" },
+    { name: "Projects", href: "/all-projects" },
+    { name: "Blogs", href: "/all-blogs" },
   ];
 
   return (
-    <header className="bg-dark-navy sticky top-0 z-50 shadow-sm">
+    <header
+      className={`bg-dark-navy sticky top-0 z-50 shadow-sm ${
+        pathname === "/" ? "" : "border-b-2 border-gray-600"
+      }`}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
@@ -48,6 +61,12 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            <button
+              className="cursor-pointer rounded-lg border-2 border-teal-300 bg-transparent px-4 py-2 font-medium text-teal-300 transition-colors hover:bg-teal-300 hover:text-gray-600"
+              onClick={() => scrollToSection("contact")}
+            >
+              Get Started
+            </button>
           </nav>
 
           {/* Mobile menu button */}

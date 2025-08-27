@@ -314,8 +314,25 @@
   --color-social-icon-hover: #00e5ff;         /* Cyan hover for social icons */
   --color-social-bg-hover: rgba(0, 229, 255, 0.1); /* Cyan background on hover */
 
-
+  /* ------About me section---------- */
+/* Section background */
+  --color-about-section-bg: #ffffff;          /* White background */
+  
+  /* Text colors */
+  --color-about-label: #ff6b6b;               /* Red/orange label text */
+  --color-about-heading: #2d3748;             /* Dark gray main heading */
+  --color-about-body-text: #4a5568;           /* Medium gray body text */
+  
+  /* Button colors */
+  --color-about-btn-border: #e2e8f0;          /* Light gray button border */
+  --color-about-btn-text: #4a5568;            /* Gray button text */
+  --color-about-btn-hover-bg: #f7fafc;        /* Light gray hover background */
+  --color-about-btn-hover-border: #cbd5e0;    /* Darker border on hover */
+  
+  /* Image overlay */
+  --color-about-image-overlay: rgba(0, 0, 0, 0.1); /* Subtle dark overlay */
 }
+
 /* ------Portfolio Color Palette---------- */
 
 /* root style */
